@@ -1,10 +1,11 @@
 package com.cg.mts.entities;
 
+import java.util.*;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
 import javax.persistence.OneToMany;
-import java.util.*;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Driver extends AbstractUser {
@@ -14,6 +15,6 @@ public class Driver extends AbstractUser {
 	@OneToOne
 	private Cab cab;
 	private float rating;
-	@OneToMany
-	List<TripBooking> list = new ArrayList<TripBooking>();
+	@OneToMany(mappedBy = "driver")
+	private List<TripBooking> list;
 }
