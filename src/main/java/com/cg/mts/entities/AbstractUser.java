@@ -13,6 +13,9 @@ public abstract class AbstractUser {
 	private String mobileNumber;
 	private String email;
 
+	public AbstractUser() {
+	}
+
 	public AbstractUser(String username, String password, String mobileNumber, String email) {
 		this.username = username;
 		this.password = password;

@@ -1,7 +1,5 @@
 package com.cg.mts.entities;
 
-import org.hibernate.annotations.Generated;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -22,7 +20,7 @@ public class Customer extends AbstractUser {
 		return customerId;
 	}
 
-	public void setCustomerId(int customerId) {
-		this.customerId = customerId;
-	}
+//	public void setCustomerId(int customerId) {
+//		this.customerId = customerId;
+//	}
 }

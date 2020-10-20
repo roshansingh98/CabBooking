@@ -30,19 +30,4 @@ public class Util {
 		}
 		factory.close();
 	}
-
-//	EntityManager entityManager = factory.createEntityManager();
-//	EntityTransaction entityTransaction = entityManager.getTransaction();
-//
-//	private Util() {
-//
-//	}
-//
-//	public static EntityManager getEntityManager() {
-//		return new Util().entityManager;
-//	}
-//
-//	public static EntityTransaction getTransaction() {
-//		return new Util().entityTransaction;
-//	}
 }
