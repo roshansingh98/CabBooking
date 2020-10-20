@@ -8,10 +8,18 @@ import javax.persistence.EntityTransaction;
 import com.cg.mts.dao.Util;
 import com.cg.mts.entities.Driver;
 
-public class DriverService implements IDriverService{
+public class DriverService implements IDriverService {
 
-	EntityManager em = Util.getEntityManager();
-	EntityTransaction et = Util.getTransaction();
+
+	private EntityManager em;
+	EntityTransaction et;
+
+	public DriverService() {
+		Util util = Util.getInstance();
+		em = util.getEntityManager();
+		et = em.getTransaction();
+	}
+
 	public Driver insertDriver(Driver driver) {
 		et.begin();
 		em.persist(driver);

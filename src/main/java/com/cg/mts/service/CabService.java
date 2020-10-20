@@ -8,10 +8,17 @@ import javax.persistence.EntityTransaction;
 import com.cg.mts.dao.Util;
 import com.cg.mts.entities.Cab;
 
-public class CabService implements ICabService{
+public class CabService implements ICabService {
 
-	EntityManager em = Util.getEntityManager();
-	EntityTransaction et = Util.getTransaction();
+	private EntityManager em;
+	EntityTransaction et;
+
+	public CabService() {
+		Util util = Util.getInstance();
+		em = util.getEntityManager();
+		et = em.getTransaction();
+	}
+
 	public Cab insertCab(Cab cab) {
 		et.begin();
 		em.persist(cab);

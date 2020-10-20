@@ -8,10 +8,17 @@ import javax.persistence.EntityTransaction;
 import com.cg.mts.dao.Util;
 import com.cg.mts.entities.TripBooking;
 
-public class TripBookingService implements ITripBookingService{
+public class TripBookingService implements ITripBookingService {
 
-	EntityManager em = Util.getEntityManager();
-	EntityTransaction et = Util.getTransaction();
+	private EntityManager em;
+	EntityTransaction et;
+
+	public TripBookingService() {
+		Util util = Util.getInstance();
+		em = util.getEntityManager();
+		et = em.getTransaction();
+	}
+
 	public TripBooking insertTripBooking(TripBooking tripBooking) {
 		et.begin();
 		em.persist(tripBooking);

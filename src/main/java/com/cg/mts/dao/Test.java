@@ -22,7 +22,7 @@ public class Test {
 	public static void main(String[] args) {
 
 		Test test = new Test();
-		Customer customer = new Customer("abc", "abc", "abc", "abc", 1);
+		Customer customer = new Customer("Customer", "123", "123456", "abc");
 //		test.beginTransaction();
 //		test.insert(customer);
 //		test.endTransaction();
@@ -30,10 +30,10 @@ public class Test {
 //		Customer retrieved = test.retrieve(customer);
 //		test.endTransaction();
 //		System.out.println(retrieved.getCustomerId());
-		
+
 		ICustomerService customerService = new CustomerService();
-		Customer c = customerService.updateCustomer(customer);
-		System.out.println("New customer has" + c.getCustomerId());
+		Customer c = customerService.viewCustomer(1);
+		System.out.println("New customer has" + c);
 	}
 
 	public void beginTransaction() {
@@ -45,7 +45,7 @@ public class Test {
 		System.out.println("Customer Inserted Successfully");
 	}
 
-//	public Customer retrieve(Customer customer) {
+	//	public Customer retrieve(Customer customer) {
 //		return entityManager.find(customer.getClass(), 1);
 //	}
 //

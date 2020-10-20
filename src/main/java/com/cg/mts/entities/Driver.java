@@ -17,4 +17,12 @@ public class Driver extends AbstractUser {
 	private float rating;
 	@OneToMany(mappedBy = "driver")
 	private List<TripBooking> list;
+
+
+	public Driver(String username, String password, String mobileNumber, String email, int driverId, String licenseNo, Cab cab) {
+		super(username, password, mobileNumber, email);
+		this.driverId = driverId;
+		this.licenseNo = licenseNo;
+		this.cab = cab;
+	}
 }

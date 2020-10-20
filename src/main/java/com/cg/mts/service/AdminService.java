@@ -9,10 +9,18 @@ import com.cg.mts.dao.Util;
 import com.cg.mts.entities.Admin;
 import com.cg.mts.entities.TripBooking;
 
-public class AdminService implements IAdminService{
+public class AdminService implements IAdminService {
 
-	EntityManager em = Util.getEntityManager();
-	EntityTransaction et = Util.getTransaction();
+
+	private EntityManager em;
+	EntityTransaction et;
+
+	public AdminService() {
+		Util util = Util.getInstance();
+		em = util.getEntityManager();
+		et = em.getTransaction();
+	}
+
 	public Admin insertAdmin(Admin admin) {
 		et.begin();
 		em.persist(admin);

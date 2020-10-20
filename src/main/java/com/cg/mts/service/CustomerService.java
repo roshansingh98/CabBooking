@@ -1,64 +1,61 @@
 package com.cg.mts.service;
 
-import java.util.List;
-
-import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
-
 import com.cg.mts.dao.Util;
 import com.cg.mts.entities.Customer;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
+import java.util.List;
+
 public class CustomerService implements ICustomerService {
 
-	EntityManager em = Util.getEntityManager();
-	EntityTransaction et = Util.getTransaction();
-	public Customer insertCustomer(Customer customer) {
-		et.begin();
-		em.persist(customer);
-		et.commit();
-		return customer;
-	}
+    private EntityManager em;
+    EntityTransaction et;
 
-	public Customer updateCustomer(Customer customer) {
-		et.begin();
-		em.merge(customer);
-		et.commit();
-		return customer;
-	}
+    public CustomerService() {
+        Util util = Util.getInstance();
+        em = util.getEntityManager();
+        et = em.getTransaction();
+    }
 
-	public Customer deleteCustomer(Customer customer) {
-		et.begin();
-		em.remove(customer);
-		et.commit();
-		return customer;
-	}
+//    EntityManager em = Util.getEntityManager();
+//    EntityTransaction et = Util.getTransaction();
 
-	public List<Customer> viewCustomers() {
-		et.begin();
-		List<Customer> customers = em.createQuery("Select * from customer").getResultList();
-		et.commit();
-		return customers;
-	}
+    @Override
+    public Customer insertCustomer(Customer customer) {
+        et.begin();
+        em.persist(customer);
+        et.commit();
+        return customer;
+    }
 
-	public Customer viewCustomer(int customerId) {
-		et.begin();
-		Customer customer = em.find(Customer.class, customerId);
-		et.commit();
-		return customer;
-	}
+    @Override
+    public Customer updateCustomer(Customer customer) {
+        et.begin();
+        em.merge(customer);
+        return null;
+    }
 
-	public Customer validateCustomer(String username, String password) {
-		Customer customer = em.find(Customer.class, username);
-		if(customer == null) {
-			return null;
-		}
-		else {
-			customer = em.find(Customer.class, password);
-			if(customer == null) {
-				return null;
-			}
-		}
-		return customer;
-	}
+    @Override
+    public Customer deleteCustomer(Customer customer) {
+        et.begin();
+        em.remove(customer);
+        et.commit();
+        return customer;
+    }
 
+    @Override
+    public List<Customer> viewCustomers() {
+        return null;
+    }
+
+    @Override
+    public Customer viewCustomer(int customerId) {
+        return em.find(Customer.class, customerId);
+    }
+
+    @Override
+    public Customer validateCustomer(String username, String password) {
+        return null;
+    }
 }
