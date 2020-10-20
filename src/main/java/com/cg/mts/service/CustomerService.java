@@ -18,9 +18,6 @@ public class CustomerService implements ICustomerService {
         et = em.getTransaction();
     }
 
-//    EntityManager em = Util.getEntityManager();
-//    EntityTransaction et = Util.getTransaction();
-
     @Override
     public Customer insertCustomer(Customer customer) {
         et.begin();
@@ -46,7 +43,10 @@ public class CustomerService implements ICustomerService {
 
     @Override
     public List<Customer> viewCustomers() {
-        return null;
+        et.begin();
+        List<Customer> customers = em.createQuery("Select * from customer", Customer.class).getResultList();
+        et.commit();
+        return customers;
     }
 
     @Override
@@ -56,6 +56,15 @@ public class CustomerService implements ICustomerService {
 
     @Override
     public Customer validateCustomer(String username, String password) {
-        return null;
+        Customer customer = em.find(Customer.class, username);
+        if (customer == null) {
+            return null;
+        } else {
+            customer = em.find(Customer.class, password);
+            if (customer == null) {
+                return null;
+            }
+        }
+        return customer;
     }
 }

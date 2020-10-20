@@ -42,7 +42,7 @@ public class TripBookingService implements ITripBookingService {
 
 	public List<TripBooking> viewAllTripsCustomer(int customerId) {
 		et.begin();
-		List<TripBooking> trp = em.createQuery("Select * from tripbooking where customerid = 'customerid'").setParameter("customerid", customerId).getResultList();
+		List<TripBooking> trp = em.createQuery("Select * from tripbooking where customerid = 'customerid'", TripBooking.class).setParameter("customerid", customerId).getResultList();
 		et.commit();
 		return trp;
 	}

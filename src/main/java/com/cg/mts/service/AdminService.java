@@ -11,7 +11,6 @@ import com.cg.mts.entities.TripBooking;
 
 public class AdminService implements IAdminService {
 
-
 	private EntityManager em;
 	EntityTransaction et;
 
@@ -45,35 +44,35 @@ public class AdminService implements IAdminService {
 
 	public List<TripBooking> getAllTrips(int customerId) {
 		et.begin();
-		List<TripBooking> li = em.createQuery("SELECT tr FROM tripbooking tr WHERE tr.customerId = 'customerID'").setParameter("customerID", customerId).getResultList();
+		List<TripBooking> li = em.createQuery("SELECT * FROM tripbooking tr WHERE tr.customerId = 'customerID'", TripBooking.class).setParameter("customerID", customerId).getResultList();
 		et.commit();
 		return li;
 	}
 
 	public List<TripBooking> getTripsCabwise() {
 		et.begin();
-		List<TripBooking> li = em.createQuery("SELECT tr FROM tripbooking tr WHERE driver_driverid in (select driverid from driver where cab_cabid in (select cabid from cab group by cabid order by cabid))").getResultList();
+		List<TripBooking> li = em.createQuery("SELECT * FROM tripbooking tr WHERE driver_driverid in (select driverid from driver where cab_cabid in (select cabid from cab group by cabid order by cabid))", TripBooking.class).getResultList();
 		et.commit();
 		return li;
 	}
 
 	public List<TripBooking> getTripsCustomerwise() {
 		et.begin();
-		List<TripBooking> li = em.createQuery("SELECT tr from tripbooking tr where customerid in (select customerid from customer group by customerid order by customerid)").getResultList();
+		List<TripBooking> li = em.createQuery("SELECT * from tripbooking tr where customerid in (select customerid from customer group by customerid order by customerid)", TripBooking.class).getResultList();
 		et.commit();
 		return li;
 	}
 
 	public List<TripBooking> getTripsDatewise() {
 		et.begin();
-		List<TripBooking> li = em.createQuery("select tr from tripbooking tr group by fromdatetime").getResultList();
+		List<TripBooking> li = em.createQuery("select tr from tripbooking tr group by fromdatetime", TripBooking.class).getResultList();
 		et.commit();
 		return li;
 	}
 
 	public List<TripBooking> getAllTripsForDays(int customerId, LocalDateTime fromDate, LocalDateTime toDate) {
 		et.begin();
-		List<TripBooking> li = em.createQuery("Select tr from tripbooking tr where customerId = 'customerID' and fromdatetime = 'fromdatetime' and todatetime = 'todatetime'").getResultList();
+		List<TripBooking> li = em.createQuery("Select tr from tripbooking tr where customerId = 'customerID' and fromdatetime = 'fromdatetime' and todatetime = 'todatetime'", TripBooking.class).getResultList();
 		et.commit();
 		return li;
 	}

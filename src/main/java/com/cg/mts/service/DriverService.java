@@ -14,6 +14,7 @@ public class DriverService implements IDriverService {
 	private EntityManager em;
 	EntityTransaction et;
 
+
 	public DriverService() {
 		Util util = Util.getInstance();
 		em = util.getEntityManager();
@@ -44,7 +45,7 @@ public class DriverService implements IDriverService {
 
 	public List<Driver> viewBestDrivers() {
 		et.begin();
-		List<Driver> bestDrivers = em.createQuery("select * from driver where rating >= 4.5").getResultList();
+		List<Driver> bestDrivers = em.createQuery("select * from driver where rating >= 4.5", Driver.class).getResultList();
 		et.commit();
 		return bestDrivers;
 	}

@@ -42,7 +42,7 @@ public class CabService implements ICabService {
 
 	public List<Cab> viewCabsOfType(String carType) {
 		et.begin();
-		List<Cab> listOfCabs = em.createQuery("select * from cab where cartype = 'cartype'").setParameter("cartype", carType).getResultList();
+		List<Cab> listOfCabs = em.createQuery("select * from cab where cartype = 'cartype'", Cab.class).setParameter("cartype", carType).getResultList();
 		et.commit();
 		return listOfCabs;
 	}

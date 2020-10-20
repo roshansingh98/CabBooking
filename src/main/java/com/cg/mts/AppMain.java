@@ -31,7 +31,7 @@ public class AppMain {
 
         System.out.println("New customer has" + c);
         System.out.println("New customer with id 1 as: " + customerService.viewCustomer(2).getUsername());
-        System.out.println("New customer deleted is " + customerService.deleteCustomer(c).getUsername());
+        //System.out.println("New customer deleted is " + customerService.deleteCustomer(c).getUsername());
 
 
     }
