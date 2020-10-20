@@ -21,6 +21,7 @@ public class AppMain {
 
         Customer customer = new Customer("Customer", "123", "123456", "abc");
         Customer customer1 = new Customer("Customer1", "123", "123456", "abc");
+        Customer customer2 = new Customer("Customer2", "123", "123456", "abc");
 
 
         ICustomerService customerService = new CustomerService();
