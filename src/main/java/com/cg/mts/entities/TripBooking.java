@@ -12,7 +12,6 @@ public class TripBooking {
 	private int tripBookingId;
 	private int customerId;
 	@ManyToOne
-	@JoinColumn(name = "driver_id", nullable = false)
 	private Driver driver;
 	private String fromLocation;
 	private String toLocation;
