@@ -12,7 +12,7 @@ public class Test {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		EntityManagerFactory factory = Persistence.createEntityManagerFactory("student");
+		EntityManagerFactory factory = Persistence.createEntityManagerFactory("cabbooking");
 		EntityManager entityManager = factory.createEntityManager();
 		EntityTransaction entityTransaction = entityManager.getTransaction();
 		entityTransaction.begin();
