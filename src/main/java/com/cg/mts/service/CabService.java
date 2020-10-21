@@ -15,64 +15,64 @@ public class CabService implements ICabService {
 
 	private ICabRepository cabDao;
 
-	private final EntityManager em;
+	private final EntityManager entityManager;
 
 	public CabService() {
 		Util util = Util.getInstance();
-		em = util.getEntityManager();
-		cabDao = new CabDao(em);
+		entityManager = util.getEntityManager();
+		cabDao = new CabDao(entityManager);
 	}
 
 	public Cab insertCab(Cab cab) {
-		EntityTransaction et = em.getTransaction();
-		et.begin();
+		EntityTransaction entityTransaction = entityManager.getTransaction();
+		entityTransaction.begin();
 		cab = cabDao.insertCab(cab);
-		et.commit();
+		entityTransaction.commit();
 		return cab;
 	}
 
 	public Cab updateCab(Cab cab) {
-		EntityTransaction et = em.getTransaction();
-		et.begin();
+		EntityTransaction entityTransaction = entityManager.getTransaction();
+		entityTransaction.begin();
 		try {
 			cab = cabDao.updateCab(cab);
 		} catch (CabNotFoundException e) {
 			e.getMessage();
 		}
-		et.commit();
+		entityTransaction.commit();
 		return cab;
 	}
 
 	public Cab deleteCab(Cab cab) {
-		EntityTransaction et = em.getTransaction();
-		et.begin();
+		EntityTransaction entityTransaction = entityManager.getTransaction();
+		entityTransaction.begin();
 		try {
 			cab = cabDao.deleteCab(cab);
 		} catch (CabNotFoundException e) {
 			e.getMessage();
 		}
-		et.commit();
+		entityTransaction.commit();
 		return cab;
 	}
 
 	public List<Cab> viewCabsOfType(String carType) {
-		EntityTransaction et = em.getTransaction();
-		et.begin();
+		EntityTransaction entityTransaction = entityManager.getTransaction();
+		entityTransaction.begin();
 		List<Cab> listOfCabs = null;
 		try {
 			listOfCabs = cabDao.viewCabsOfType(carType);
 		} catch (CabNotFoundException e) {
 			e.printStackTrace();
 		}
-		et.commit();
+		entityTransaction.commit();
 		return listOfCabs;
 	}
 
 	public int countCabsOfType(String carType) {
-		EntityTransaction et = em.getTransaction();
-		et.begin();
-		int count = (Integer) em.createQuery("Select count(*) from cab where cartype = 'cartype'").setParameter("cartype", carType).getSingleResult();
-		et.commit();
+		EntityTransaction entityTransaction = entityManager.getTransaction();
+		entityTransaction.begin();
+		int count = (Integer) entityManager.createQuery("Select count(*) from cab where cartype = 'cartype'").setParameter("cartype", carType).getSingleResult();
+		entityTransaction.commit();
 		return count;
 	}
 

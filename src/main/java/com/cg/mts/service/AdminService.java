@@ -19,99 +19,100 @@ public class AdminService implements IAdminService {
 
 	private IAdminRepository adminDao;
 
-	private final EntityManager em;
+	private final EntityManager entityManager;
 
 	public AdminService() {
 		Util util = Util.getInstance();
-		em = util.getEntityManager();
-		adminDao = new AdminDao(em);
+		entityManager = util.getEntityManager();
+		adminDao = new AdminDao(entityManager);
 	}
 
+
 	public Admin insertAdmin(Admin admin) {
-		EntityTransaction et = em.getTransaction();
-		et.begin();
+		EntityTransaction entityTransaction = entityManager.getTransaction();
+		entityTransaction.begin();
 		admin = adminDao.insertAdmin(admin);
-		et.commit();
+		entityTransaction.commit();
 		return admin;
 	}
 
 	public Admin updateAdmin(Admin admin) {
-		EntityTransaction et = em.getTransaction();
-		et.begin();
+		EntityTransaction entityTransaction = entityManager.getTransaction();
+		entityTransaction.begin();
 		try {
 			admin = adminDao.updateAdmin(admin);
 		} catch (AdminNotFoundException e) {
 			e.getMessage();
 		}
-		et.commit();
+		entityTransaction.commit();
 		return admin;
 	}
 
 	public Admin deleteAdmin(int adminId) {
-		EntityTransaction et = em.getTransaction();
+		EntityTransaction entityTransaction = entityManager.getTransaction();
 		Admin admin = null;
-		et.begin();
+		entityTransaction.begin();
 		try {
 			admin = adminDao.deleteAdmin(adminId);
 		} catch (AdminNotFoundException e) {
 			e.getMessage();
 		}
-		et.commit();
+		entityTransaction.commit();
 		return admin;
 	}
 
 	public List<TripBooking> getAllTrips(int customerId) {
-		EntityTransaction et = em.getTransaction();
-		et.begin();
+		EntityTransaction entityTransaction = entityManager.getTransaction();
+		entityTransaction.begin();
 		List<TripBooking> li = null;
 		try {
 			li = adminDao.getAllTrips(customerId);
 		} catch (CustomerNotFoundException e) {
 			e.getMessage();
 		}
-		et.commit();
+		entityTransaction.commit();
 		return li;
 	}
 
 	public List<TripBooking> getTripsCabwise() {
-		EntityTransaction et = em.getTransaction();
-		et.begin();
+		EntityTransaction entityTransaction = entityManager.getTransaction();
+		entityTransaction.begin();
 		List<TripBooking> li = null;
 		try {
 			li = adminDao.getTripsCabwise();
 		} catch (CabNotFoundException e) {
 			e.getMessage();
 		}
-		et.commit();
+		entityTransaction.commit();
 		return li;
 	}
 
 	public List<TripBooking> getTripsCustomerwise() {
-		EntityTransaction et = em.getTransaction();
-		et.begin();
+		EntityTransaction entityTransaction = entityManager.getTransaction();
+		entityTransaction.begin();
 		List<TripBooking> li = adminDao.getTripsCustomerwise();
-		et.commit();
+		entityTransaction.commit();
 		return li;
 	}
 
 	public List<TripBooking> getTripsDatewise() {
-		EntityTransaction et = em.getTransaction();
-		et.begin();
+		EntityTransaction entityTransaction = entityManager.getTransaction();
+		entityTransaction.begin();
 		List<TripBooking> li = adminDao.getTripsDatewise();
-		et.commit();
+		entityTransaction.commit();
 		return li;
 	}
 
 	public List<TripBooking> getAllTripsForDays(int customerId, LocalDateTime fromDate, LocalDateTime toDate) {
-		EntityTransaction et = em.getTransaction();
-		et.begin();
+		EntityTransaction entityTransaction = entityManager.getTransaction();
+		entityTransaction.begin();
 		List<TripBooking> li = null;
 		try {
 			li = adminDao.getAllTripsForDays(customerId, fromDate, toDate);
 		} catch (CustomerNotFoundException e) {
 			e.getMessage();
 		}
-		et.commit();
+		entityTransaction.commit();
 		return li;
 	}
 

@@ -14,27 +14,27 @@ public class CustomerService implements ICustomerService {
 
     private ICustomerRepository customerDao;
 
-    private EntityManager em;
+    private EntityManager entityManager;
 
     public CustomerService() {
         Util util = Util.getInstance();
-        em = util.getEntityManager();
-        customerDao = new CustomerDao(em);
+        entityManager = util.getEntityManager();
+        customerDao = new CustomerDao(entityManager);
     }
 
     @Override
     public Customer insertCustomer(Customer customer) {
-        EntityTransaction et = em.getTransaction();
-        et.begin();
+        EntityTransaction entityTransaction = entityManager.getTransaction();
+        entityTransaction.begin();
         customer = customerDao.insertCustomer(customer);
-        et.commit();
+        entityTransaction.commit();
         return customer;
     }
 
     @Override
     public Customer updateCustomer(Customer customer) {
-        EntityTransaction et = em.getTransaction();
-        et.begin();
+        EntityTransaction entityTransaction = entityManager.getTransaction();
+        entityTransaction.begin();
 
         try {
             customer = customerDao.updateCustomer(customer);
@@ -42,15 +42,15 @@ public class CustomerService implements ICustomerService {
             e.getMessage();
         }
 
-        et.commit();
+        entityTransaction.commit();
 
         return customer;
     }
 
     @Override
     public Customer deleteCustomer(Customer customer) {
-        EntityTransaction et = em.getTransaction();
-        et.begin();
+        EntityTransaction entityTransaction = entityManager.getTransaction();
+        entityTransaction.begin();
 
         try {
             customer = customerDao.deleteCustomer(customer);
@@ -58,22 +58,22 @@ public class CustomerService implements ICustomerService {
             e.getMessage();
         }
 
-        et.commit();
+        entityTransaction.commit();
 
         return customer;
     }
 
     @Override
     public List<Customer> viewCustomers() {
-        EntityTransaction et = em.getTransaction();
-        et.begin();
+        EntityTransaction entityTransaction = entityManager.getTransaction();
+        entityTransaction.begin();
         List<Customer> customers = null;
         try {
             customers = customerDao.viewCustomers();
         } catch (CustomerNotFoundException e) {
             e.getMessage();
         }
-        et.commit();
+        entityTransaction.commit();
         return customers;
     }
 

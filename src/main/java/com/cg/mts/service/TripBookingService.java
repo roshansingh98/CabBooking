@@ -12,45 +12,45 @@ import com.cg.mts.entities.TripBooking;
 
 public class TripBookingService implements ITripBookingService {
 
-	private EntityManager em;
+	private EntityManager entityManager;
 
 	private ITripBookingRepository tripBookingDao;
 
 	public TripBookingService() {
 		Util util = Util.getInstance();
-		em = util.getEntityManager();
-		tripBookingDao = new TripBookingDao(em);
+		entityManager = util.getEntityManager();
+		tripBookingDao = new TripBookingDao(entityManager);
 	}
 
 	public TripBooking insertTripBooking(TripBooking tripBooking) {
-		EntityTransaction et = em.getTransaction();
-		et.begin();
+		EntityTransaction entityTransaction = entityManager.getTransaction();
+		entityTransaction.begin();
 		tripBooking = tripBookingDao.insertTripBooking(tripBooking);
-		et.commit();
+		entityTransaction.commit();
 		return tripBooking;
 	}
 
 	public TripBooking updateTripBooking(TripBooking tripBooking) {
-		EntityTransaction et = em.getTransaction();
-		et.begin();
+		EntityTransaction entityTransaction = entityManager.getTransaction();
+		entityTransaction.begin();
 		tripBooking = tripBookingDao.updateTripBooking(tripBooking);
-		et.commit();
+		entityTransaction.commit();
 		return tripBooking;
 	}
 
 	public TripBooking deleteTripBooking(TripBooking tripBooking) {
-		EntityTransaction et = em.getTransaction();
-		et.begin();
+		EntityTransaction entityTransaction = entityManager.getTransaction();
+		entityTransaction.begin();
 		tripBooking = tripBookingDao.deleteTripBooking(tripBooking);
-		et.commit();
+		entityTransaction.commit();
 		return tripBooking;
 	}
 
 	public List<TripBooking> viewAllTripsCustomer(int customerId) {
-		EntityTransaction et = em.getTransaction();
-		et.begin();
+		EntityTransaction entityTransaction = entityManager.getTransaction();
+		entityTransaction.begin();
 		List<TripBooking> viewAllTrips = tripBookingDao.viewAllTripsCustomer(customerId);
-		et.commit();
+		entityTransaction.commit();
 		return viewAllTrips;
 	}
 
