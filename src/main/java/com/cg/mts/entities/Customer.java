@@ -20,7 +20,5 @@ public class Customer extends AbstractUser {
 		return customerId;
 	}
 
-//	public void setCustomerId(int customerId) {
-//		this.customerId = customerId;
-//	}
+
 }

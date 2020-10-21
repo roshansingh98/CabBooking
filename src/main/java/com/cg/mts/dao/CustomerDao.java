@@ -50,11 +50,20 @@ public class CustomerDao implements ICustomerRepository {
 
     @Override
     public List<Customer> viewCustomers() throws CustomerNotFoundException {
-        return null;
+
+        List<Customer> customers = entityManager.createQuery("Select a from Customer a", Customer.class).getResultList();
+
+        if (customers == null) {
+            throw new CustomerNotFoundException("No customer in the database");
+        }
+        return customers;
     }
 
     @Override
     public Customer viewCustomer(int customerId) throws CustomerNotFoundException {
+
+        Customer customer = entityManager.find(Customer.class, customerId);
+
         return null;
     }
 

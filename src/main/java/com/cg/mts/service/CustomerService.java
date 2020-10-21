@@ -65,14 +65,25 @@ public class CustomerService implements ICustomerService {
     @Override
     public List<Customer> viewCustomers() {
         et.begin();
-        List<Customer> customers = em.createQuery("Select a from Customer a", Customer.class).getResultList();
+        List<Customer> customers = null;
+        try {
+            customers = customerDao.viewCustomers();
+        } catch (CustomerNotFoundException e) {
+            e.getMessage();
+        }
         et.commit();
         return customers;
     }
 
     @Override
     public Customer viewCustomer(int customerId) {
-        return em.find(Customer.class, customerId);
+        Customer customer = null;
+        try {
+            customer = customerDao.viewCustomer(customerId);
+        } catch (CustomerNotFoundException e) {
+            e.getMessage();
+        }
+        return customer;
     }
 
     @Override
