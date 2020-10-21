@@ -11,9 +11,8 @@ public class Driver extends AbstractUser {
 	@Id
 	private int driverId;
 	private String licenseNo;
-	@OneToOne
+	@OneToOne(cascade = {CascadeType.ALL})
 	private Cab cab;
-
 	private float rating;
 	@OneToMany(mappedBy = "driver")
 	private List<TripBooking> list;

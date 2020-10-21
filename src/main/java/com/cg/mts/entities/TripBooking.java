@@ -4,12 +4,17 @@ import java.time.LocalDateTime;
 import javax.persistence.*;
 
 @Entity
+@NamedQueries({
+		@NamedQuery(query = "Select e from TripBooking e where e.customerId = :customerId", name = "find tripbooking by customerId"),
+		@NamedQuery(query = "select e from TripBooking e where e.customerId = :customerId and e.fromDateTime = :fromdatetime and e.toDateTime = :todatetime", name = "find tripbooking by multiple")
+})
 public class TripBooking {
 	@GeneratedValue
 	@Id
 	private int tripBookingId;
 	private int customerId;
-	@ManyToOne
+	@ManyToOne(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
+	@JoinColumn(name = "Driver")
 	private Driver driver;
 	private String fromLocation;
 	private String toLocation;
@@ -18,6 +23,21 @@ public class TripBooking {
 	private boolean status;
 	private float distanceInKm;
 	private float bill;
+
+	public TripBooking(int tripBookingId, int customerId, Driver driver, String fromLocation, String toLocation,
+					   LocalDateTime fromDateTime, LocalDateTime toDateTime, boolean status, float distanceInKm, float bill) {
+		super();
+		this.tripBookingId = tripBookingId;
+		this.customerId = customerId;
+		this.driver = driver;
+		this.fromLocation = fromLocation;
+		this.toLocation = toLocation;
+		this.fromDateTime = fromDateTime;
+		this.toDateTime = toDateTime;
+		this.status = status;
+		this.distanceInKm = distanceInKm;
+		this.bill = bill;
+	}
 
 
 	public int getTripBookingId() {
