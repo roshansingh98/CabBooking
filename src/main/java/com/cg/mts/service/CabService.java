@@ -16,16 +16,15 @@ public class CabService implements ICabService {
 	private ICabRepository cabDao;
 
 	private final EntityManager em;
-	private final EntityTransaction et;
 
 	public CabService() {
 		Util util = Util.getInstance();
 		em = util.getEntityManager();
-		et = em.getTransaction();
 		cabDao = new CabDao(em);
 	}
 
 	public Cab insertCab(Cab cab) {
+		EntityTransaction et = em.getTransaction();
 		et.begin();
 		cab = cabDao.insertCab(cab);
 		et.commit();
@@ -33,6 +32,7 @@ public class CabService implements ICabService {
 	}
 
 	public Cab updateCab(Cab cab) {
+		EntityTransaction et = em.getTransaction();
 		et.begin();
 		try {
 			cab = cabDao.updateCab(cab);
@@ -44,6 +44,7 @@ public class CabService implements ICabService {
 	}
 
 	public Cab deleteCab(Cab cab) {
+		EntityTransaction et = em.getTransaction();
 		et.begin();
 		try {
 			cab = cabDao.deleteCab(cab);
@@ -55,6 +56,7 @@ public class CabService implements ICabService {
 	}
 
 	public List<Cab> viewCabsOfType(String carType) {
+		EntityTransaction et = em.getTransaction();
 		et.begin();
 		List<Cab> listOfCabs = null;
 		try {
@@ -67,6 +69,7 @@ public class CabService implements ICabService {
 	}
 
 	public int countCabsOfType(String carType) {
+		EntityTransaction et = em.getTransaction();
 		et.begin();
 		int count = (Integer) em.createQuery("Select count(*) from cab where cartype = 'cartype'").setParameter("cartype", carType).getSingleResult();
 		et.commit();

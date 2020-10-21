@@ -15,17 +15,16 @@ public class CustomerService implements ICustomerService {
     private ICustomerRepository customerDao;
 
     private EntityManager em;
-    EntityTransaction et;
 
     public CustomerService() {
         Util util = Util.getInstance();
         em = util.getEntityManager();
-        et = em.getTransaction();
         customerDao = new CustomerDao(em);
     }
 
     @Override
     public Customer insertCustomer(Customer customer) {
+        EntityTransaction et = em.getTransaction();
         et.begin();
         customer = customerDao.insertCustomer(customer);
         et.commit();
@@ -34,6 +33,7 @@ public class CustomerService implements ICustomerService {
 
     @Override
     public Customer updateCustomer(Customer customer) {
+        EntityTransaction et = em.getTransaction();
         et.begin();
 
         try {
@@ -49,6 +49,7 @@ public class CustomerService implements ICustomerService {
 
     @Override
     public Customer deleteCustomer(Customer customer) {
+        EntityTransaction et = em.getTransaction();
         et.begin();
 
         try {
@@ -64,6 +65,7 @@ public class CustomerService implements ICustomerService {
 
     @Override
     public List<Customer> viewCustomers() {
+        EntityTransaction et = em.getTransaction();
         et.begin();
         List<Customer> customers = null;
         try {

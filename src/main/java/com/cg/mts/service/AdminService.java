@@ -20,16 +20,15 @@ public class AdminService implements IAdminService {
 	private IAdminRepository adminDao;
 
 	private final EntityManager em;
-	private final EntityTransaction et;
 
 	public AdminService() {
 		Util util = Util.getInstance();
 		em = util.getEntityManager();
-		et = em.getTransaction();
 		adminDao = new AdminDao(em);
 	}
 
 	public Admin insertAdmin(Admin admin) {
+		EntityTransaction et = em.getTransaction();
 		et.begin();
 		admin = adminDao.insertAdmin(admin);
 		et.commit();
@@ -37,6 +36,7 @@ public class AdminService implements IAdminService {
 	}
 
 	public Admin updateAdmin(Admin admin) {
+		EntityTransaction et = em.getTransaction();
 		et.begin();
 		try {
 			admin = adminDao.updateAdmin(admin);
@@ -48,6 +48,7 @@ public class AdminService implements IAdminService {
 	}
 
 	public Admin deleteAdmin(int adminId) {
+		EntityTransaction et = em.getTransaction();
 		Admin admin = null;
 		et.begin();
 		try {
@@ -60,6 +61,7 @@ public class AdminService implements IAdminService {
 	}
 
 	public List<TripBooking> getAllTrips(int customerId) {
+		EntityTransaction et = em.getTransaction();
 		et.begin();
 		List<TripBooking> li = null;
 		try {
@@ -72,6 +74,7 @@ public class AdminService implements IAdminService {
 	}
 
 	public List<TripBooking> getTripsCabwise() {
+		EntityTransaction et = em.getTransaction();
 		et.begin();
 		List<TripBooking> li = null;
 		try {
@@ -84,6 +87,7 @@ public class AdminService implements IAdminService {
 	}
 
 	public List<TripBooking> getTripsCustomerwise() {
+		EntityTransaction et = em.getTransaction();
 		et.begin();
 		List<TripBooking> li = adminDao.getTripsCustomerwise();
 		et.commit();
@@ -91,6 +95,7 @@ public class AdminService implements IAdminService {
 	}
 
 	public List<TripBooking> getTripsDatewise() {
+		EntityTransaction et = em.getTransaction();
 		et.begin();
 		List<TripBooking> li = adminDao.getTripsDatewise();
 		et.commit();
@@ -98,6 +103,7 @@ public class AdminService implements IAdminService {
 	}
 
 	public List<TripBooking> getAllTripsForDays(int customerId, LocalDateTime fromDate, LocalDateTime toDate) {
+		EntityTransaction et = em.getTransaction();
 		et.begin();
 		List<TripBooking> li = null;
 		try {
