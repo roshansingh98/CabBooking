@@ -88,14 +88,11 @@ public class CustomerService implements ICustomerService {
 
     @Override
     public Customer validateCustomer(String username, String password) {
-        Customer customer = em.find(Customer.class, username);
-        if (customer == null) {
-            return null;
-        } else {
-            customer = em.find(Customer.class, password);
-            if (customer == null) {
-                return null;
-            }
+        Customer customer = null;
+        try {
+            customer = customerDao.validateCustomer(username, password);
+        } catch (CustomerNotFoundException e) {
+            e.getMessage();
         }
         return customer;
     }

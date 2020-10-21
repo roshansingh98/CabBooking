@@ -69,7 +69,17 @@ public class CustomerDao implements ICustomerRepository {
 
     @Override
     public Customer validateCustomer(String username, String password) throws CustomerNotFoundException {
-        return null;
+
+        Customer customer = entityManager.find(Customer.class, username);
+        if (customer == null) {
+            throw new CustomerNotFoundException("The user with this username was not found!!");
+        } else {
+            if (customer.getPassword() == password) {
+                return customer;
+            } else {
+                throw new CustomerNotFoundException("Password is incorrect");
+            }
+        }
     }
 
 
