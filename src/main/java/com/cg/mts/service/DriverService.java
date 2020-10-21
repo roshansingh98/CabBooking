@@ -5,6 +5,9 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 
+import com.cg.mts.dao.DriverDao;
+import com.cg.mts.exception.DriverNotFoundException;
+import com.cg.mts.repository.IDriverRepository;
 import com.cg.mts.util.Util;
 import com.cg.mts.entities.Driver;
 
@@ -12,47 +15,70 @@ public class DriverService implements IDriverService {
 
 
 	private EntityManager em;
-	EntityTransaction et;
 
+	private final IDriverRepository driverDao;
 
 	public DriverService() {
 		Util util = Util.getInstance();
 		em = util.getEntityManager();
-		et = em.getTransaction();
+		driverDao = new DriverDao(em);
 	}
 
 	public Driver insertDriver(Driver driver) {
+		EntityTransaction et = em.getTransaction();
 		et.begin();
-		em.persist(driver);
+		driver = driverDao.insertDriver(driver);
 		et.commit();
 		return driver;
 	}
 
 	public Driver updateDriver(Driver driver) {
+		EntityTransaction et = em.getTransaction();
 		et.begin();
-		Driver dr = em.merge(driver);
+		try {
+			driver = driverDao.updateDriver(driver);
+		} catch (DriverNotFoundException e) {
+			e.getMessage();
+		}
 		et.commit();
-		return dr;
+		return driver;
 	}
 
 	public Driver deleteDriver(int driverId) {
+		EntityTransaction et = em.getTransaction();
 		et.begin();
-		Driver driver = em.find(Driver.class, driverId);
-		em.remove(driver);
+		Driver driver = null;
+		try {
+			driver = driverDao.deleteDriver(driverId);
+		} catch (DriverNotFoundException e) {
+			e.getMessage();
+		}
 		et.commit();
 		return driver;
 	}
 
 	public List<Driver> viewBestDrivers() {
+		EntityTransaction et = em.getTransaction();
 		et.begin();
-		List<Driver> bestDrivers = em.createQuery("select * from driver where rating >= 4.5", Driver.class).getResultList();
+		List<Driver> bestDrivers = null;
+		try {
+			bestDrivers = driverDao.viewBestDrivers();
+		} catch (DriverNotFoundException e) {
+			e.getMessage();
+		}
 		et.commit();
 		return bestDrivers;
 	}
 
 	public Driver viewDriver(int driverId) {
+		EntityTransaction et = em.getTransaction();
 		et.begin();
-		Driver driver = em.find(Driver.class, driverId);
+		Driver driver = null;
+		try {
+			driver = driverDao.viewDriver(driverId);
+		} catch (DriverNotFoundException e) {
+			e.printStackTrace();
+		}
 		et.commit();
 		return driver;
 	}

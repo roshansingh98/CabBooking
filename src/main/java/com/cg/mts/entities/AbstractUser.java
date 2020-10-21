@@ -54,4 +54,5 @@ public abstract class AbstractUser {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+
 }

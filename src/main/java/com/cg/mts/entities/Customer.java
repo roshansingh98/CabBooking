@@ -16,6 +16,7 @@ public class Customer extends AbstractUser {
 		super(username, password, mobileNumber, email);
 	}
 
+
 	public int getCustomerId() {
 		return customerId;
 	}

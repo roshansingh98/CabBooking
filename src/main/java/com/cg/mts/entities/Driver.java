@@ -2,13 +2,12 @@ package com.cg.mts.entities;
 
 import java.util.*;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 
 @Entity
 public class Driver extends AbstractUser {
+
+	@GeneratedValue
 	@Id
 	private int driverId;
 	private String licenseNo;
@@ -25,6 +24,10 @@ public class Driver extends AbstractUser {
 		this.driverId = driverId;
 		this.licenseNo = licenseNo;
 		this.cab = cab;
+	}
+
+	public int getDriverId() {
+		return driverId;
 	}
 
 	public String getLicenseNo() {

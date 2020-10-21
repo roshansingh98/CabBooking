@@ -5,51 +5,58 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 
+import com.cg.mts.dao.TripBookingDao;
+import com.cg.mts.repository.ITripBookingRepository;
 import com.cg.mts.util.Util;
 import com.cg.mts.entities.TripBooking;
 
 public class TripBookingService implements ITripBookingService {
 
 	private EntityManager em;
-	EntityTransaction et;
+
+	private ITripBookingRepository tripBookingDao;
 
 	public TripBookingService() {
 		Util util = Util.getInstance();
 		em = util.getEntityManager();
-		et = em.getTransaction();
+		tripBookingDao = new TripBookingDao(em);
 	}
 
 	public TripBooking insertTripBooking(TripBooking tripBooking) {
+		EntityTransaction et = em.getTransaction();
 		et.begin();
-		em.persist(tripBooking);
+		tripBooking = tripBookingDao.insertTripBooking(tripBooking);
 		et.commit();
 		return tripBooking;
 	}
 
 	public TripBooking updateTripBooking(TripBooking tripBooking) {
+		EntityTransaction et = em.getTransaction();
 		et.begin();
-		TripBooking trb = em.merge(tripBooking);
+		tripBooking = tripBookingDao.updateTripBooking(tripBooking);
 		et.commit();
-		return trb;
+		return tripBooking;
 	}
 
 	public TripBooking deleteTripBooking(TripBooking tripBooking) {
+		EntityTransaction et = em.getTransaction();
 		et.begin();
-		em.remove(tripBooking);
+		tripBooking = tripBookingDao.deleteTripBooking(tripBooking);
 		et.commit();
 		return tripBooking;
 	}
 
 	public List<TripBooking> viewAllTripsCustomer(int customerId) {
+		EntityTransaction et = em.getTransaction();
 		et.begin();
-		List<TripBooking> trp = em.createQuery("Select * from tripbooking where customerid = 'customerid'", TripBooking.class).setParameter("customerid", customerId).getResultList();
+		List<TripBooking> viewAllTrips = tripBookingDao.viewAllTripsCustomer(customerId);
 		et.commit();
-		return trp;
+		return viewAllTrips;
 	}
 
 	public TripBooking calculateBill(int customerId) {
-		TripBooking tripBooking = em.find(TripBooking.class, customerId);
+//		TripBooking tripBooking = em.find(TripBooking.class, customerId);
+		TripBooking tripBooking = tripBookingDao.calculateBill(customerId);
 		return tripBooking;
 	}
-
 }
