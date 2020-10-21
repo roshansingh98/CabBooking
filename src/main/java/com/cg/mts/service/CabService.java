@@ -71,7 +71,16 @@ public class CabService implements ICabService {
 	public int countCabsOfType(String carType) {
 		EntityTransaction entityTransaction = entityManager.getTransaction();
 		entityTransaction.begin();
-		int count = (Integer) entityManager.createQuery("Select count(*) from cab where cartype = 'cartype'").setParameter("cartype", carType).getSingleResult();
+//		int count = (Integer) entityManager.createQuery("Select count(*) from cab where cartype = 'cartype'").setParameter("cartype", carType).getSingleResult();
+
+		int count = 0;
+
+		try {
+			count = cabDao.countCabsOfType(carType);
+		} catch (CabNotFoundException e) {
+			System.out.println(e.getMessage());
+		}
+
 		entityTransaction.commit();
 		return count;
 	}

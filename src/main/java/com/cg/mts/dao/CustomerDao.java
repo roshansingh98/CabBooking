@@ -26,9 +26,11 @@ public class CustomerDao implements ICustomerRepository {
     @Override
     public Customer updateCustomer(Customer customer) throws CustomerNotFoundException {
 
-        boolean success = checkExists(customer.getMobileNumber());
+//        boolean success = checkExists(customer.getMobileNumber());
 
-        if (!success) {
+        customer = entityManager.find(Customer.class, customer.getCustomerId());
+
+        if (customer == null) {
             throw new CustomerNotFoundException("Cant update! Customer with the respective mobile number not found");
         }
 
@@ -38,10 +40,12 @@ public class CustomerDao implements ICustomerRepository {
 
     @Override
     public Customer deleteCustomer(Customer customer) throws CustomerNotFoundException {
-        boolean success = checkExists(customer.getMobileNumber());
+//        boolean success = checkExists(customer.getMobileNumber());
 
-        if (!success) {
-            throw new CustomerNotFoundException("Cant update! Customer with the respective mobile number not found");
+        customer = entityManager.find(Customer.class, customer.getCustomerId());
+
+        if (customer == null) {
+            throw new CustomerNotFoundException("Cant delete! Customer with the respective Customer Id not found");
         }
 
         entityManager.remove(customer);
@@ -53,7 +57,7 @@ public class CustomerDao implements ICustomerRepository {
 
         List<Customer> customers = entityManager.createQuery("Select a from Customer a", Customer.class).getResultList();
 
-        if (customers == null) {
+        if (customers.size() == 0) {
             throw new CustomerNotFoundException("No customer in the database");
         }
         return customers;
@@ -83,9 +87,9 @@ public class CustomerDao implements ICustomerRepository {
     }
 
 
-    private boolean checkExists(String mobileNumber) {
+    /*private boolean checkExists(String mobileNumber) {
         Customer customer = entityManager.find(Customer.class, mobileNumber);
         boolean result = customer != null;
         return result;
-    }
+    }*/
 }

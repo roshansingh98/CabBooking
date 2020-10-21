@@ -3,7 +3,6 @@ package com.cg.mts.dao;
 import com.cg.mts.entities.Cab;
 import com.cg.mts.exception.CabNotFoundException;
 import com.cg.mts.repository.ICabRepository;
-import com.sun.org.apache.xpath.internal.operations.Bool;
 
 import javax.persistence.EntityManager;
 import java.util.List;
@@ -25,10 +24,10 @@ public class CabDao implements ICabRepository {
     @Override
     public Cab updateCab(Cab cab) throws CabNotFoundException {
 
-        Boolean success = checkExists(cab.getCabId());
+        cab = entityManager.find(Cab.class, cab.getCabId());
 
-        if (!success) {
-            throw new CabNotFoundException("No cab found");
+        if (cab == null) {
+            throw new CabNotFoundException("No previous cab found with the same Cab Id");
         }
 
         cab = entityManager.merge(cab);
@@ -40,9 +39,9 @@ public class CabDao implements ICabRepository {
     @Override
     public Cab deleteCab(Cab cab) throws CabNotFoundException {
 
-        boolean success = checkExists(cab.getCabId());
-        if (!success) {
-            throw new CabNotFoundException("No cab found");
+        cab = entityManager.find(Cab.class, cab.getCabId());
+        if (cab == null) {
+            throw new CabNotFoundException("No such cab found");
         }
 
         entityManager.remove(cab);
@@ -53,10 +52,10 @@ public class CabDao implements ICabRepository {
     @Override
     public List<Cab> viewCabsOfType(String carType) throws CabNotFoundException {
 
-        List<Cab> listOfCabs = entityManager.createQuery("select * from cab where cartype = 'cartype'", Cab.class).setParameter("cartype", carType).getResultList();
+        List<Cab> listOfCabs = entityManager.createNamedQuery("Find cabs from cars", Cab.class).setParameter("cartype", carType).getResultList();
 
-        if (listOfCabs == null) {
-            throw new CabNotFoundException("Cab not Found");
+        if (listOfCabs.size() == 0) {
+            throw new CabNotFoundException("No cabs found of the given type");
         }
 
         return listOfCabs;
@@ -64,17 +63,18 @@ public class CabDao implements ICabRepository {
 
     @Override
     public int countCabsOfType(String carType) throws CabNotFoundException {
-        int count = (Integer) entityManager.createQuery("Select count(*) from cab where cartype = 'cartype'").setParameter("cartype", carType).getSingleResult();
+        long count = (Long) entityManager.createNamedQuery("find cabs from cartype").setParameter("cartype", carType).getSingleResult();
+        int cnt = (int) count;
         if (count == 0) {
             throw new CabNotFoundException("Cab of the type " + carType + " not found");
         }
-        return count;
+        return cnt;
     }
 
 
-    private Boolean checkExists(int cabId) {
+    /*private Boolean checkExists(int cabId) {
         Cab cab = entityManager.find(Cab.class, cabId);
         boolean result = cab != null;
         return result;
-    }
+    }*/
 }

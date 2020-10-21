@@ -29,10 +29,11 @@ public class AdminDao implements IAdminRepository {
     @Override
     public Admin updateAdmin(Admin admin) throws AdminNotFoundException {
 
-        Boolean success = checkExists(admin.getMobileNumber());
+        //brought the check exists function here only. it can be implemented her in one line
+        admin = entityManager.find(Admin.class, admin.getAdminId());
 
-        if (!success) {
-            throw new AdminNotFoundException("Cant update! Admin with the respective mobile number not found");
+        if (admin == null) {
+            throw new AdminNotFoundException("Cant update! Admin not found");
         }
 
         admin = entityManager.merge(admin);
@@ -46,7 +47,7 @@ public class AdminDao implements IAdminRepository {
         Admin admin = entityManager.find(Admin.class, adminId);
 
         if (admin == null) {
-            throw new AdminNotFoundException("Cant update! Admin with the respective mobile number not found");
+            throw new AdminNotFoundException("Cant update! Admin with the respective Admin Id not found");
         }
 
         entityManager.remove(admin);
@@ -56,58 +57,60 @@ public class AdminDao implements IAdminRepository {
     @Override
     public List<TripBooking> getAllTrips(int customerId) throws CustomerNotFoundException {
 
-        List<TripBooking> li = entityManager.createQuery("SELECT * FROM tripbooking tr WHERE tr.customerId = 'customerID'", TripBooking.class).setParameter("customerID", customerId).getResultList();
+        List<TripBooking> trips = entityManager.createNamedQuery("find tripbooking by customerId", TripBooking.class).setParameter("customerId", customerId).getResultList();
 
-        if (li == null) {
-            throw new CustomerNotFoundException("No customer data is found!!");
+        if (trips.size() == 0) {
+            throw new CustomerNotFoundException("No trip data is found!");
         }
 
-        return null;
+        return trips;
     }
 
     @Override
     public List<TripBooking> getTripsCabwise() throws CabNotFoundException {
 
-        List<TripBooking> li = entityManager.createQuery("SELECT * FROM tripbooking tr WHERE driver_driverid in (select driverid from driver where cab_cabid in (select cabid from cab group by cabid order by cabid))", TripBooking.class).getResultList();
+        List<TripBooking> cabWiseTrip = entityManager.createQuery("SELECT tr FROM TripBooking tr where tr.driver.driverId in(select dr.driverId from Driver dr where dr.cab.cabId in (select c.cabId from Cab c group by c.cabId))", TripBooking.class).getResultList();
 
-        if (li == null) {
+        if (cabWiseTrip.size() == 0) {
             throw new CabNotFoundException("No cabs found");
         }
 
-        return li;
+        return cabWiseTrip;
     }
 
     @Override
     public List<TripBooking> getTripsCustomerwise() {
 
-        List<TripBooking> li = entityManager.createQuery("SELECT * from tripbooking tr where customerid in (select customerid from customer group by customerid order by customerid)", TripBooking.class).getResultList();
+        List<TripBooking> trips = entityManager.createQuery("SELECT tr from TripBooking tr group by tr.customerId", TripBooking.class).getResultList();
 
-        return li;
+        return trips;
     }
 
     @Override
     public List<TripBooking> getTripsDatewise() {
-        List<TripBooking> li = entityManager.createQuery("select tr from tripbooking tr group by fromdatetime", TripBooking.class).getResultList();
-        return li;
+        List<TripBooking> tripDateWise = entityManager.createQuery("select tr from TripBooking tr group by tr.fromDateTime", TripBooking.class).getResultList();
+        return tripDateWise;
     }
 
     @Override
     public List<TripBooking> getAllTripsForDays(int customerId, LocalDateTime fromDate, LocalDateTime toDate) throws CustomerNotFoundException {
 
-        Customer customer = entityManager.find(Customer.class, customerId);
-        if (customer == null) {
+        TripBooking tripsPerCustomer = entityManager.find(TripBooking.class, customerId);
+
+        if (tripsPerCustomer == null) {
             throw new CustomerNotFoundException("Cant find the customer with the given ID");
         }
 
-        List<TripBooking> li = entityManager.createQuery("Select tr from tripbooking tr where customerId = 'customerID' and fromdatetime = 'fromdatetime' and todatetime = 'todatetime'", TripBooking.class).getResultList();
-
-        return li;
+        List<TripBooking> allTripForDays = entityManager.createNamedQuery("find tripbooking by multiple", TripBooking.class).setParameter("customerId", customerId).setParameter("fromdatetime", fromDate).setParameter("todatetime", toDate).getResultList();
+        return allTripForDays;
     }
 
 
-    private boolean checkExists(String mobileNumber) {
-        Customer customer = entityManager.find(Customer.class, mobileNumber);
-        boolean result = customer != null;
+    /*
+    Commented as need can be sufficed in the respective function itself
+    private boolean checkExists(int adminId) {
+        Admin admin = entityManager.find(Admin.class, adminId);
+        boolean result = admin != null;
         return result;
-    }
+    }*/
 }
