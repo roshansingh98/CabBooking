@@ -1,9 +1,11 @@
 package com.cg.mts;
 
-import com.cg.mts.dao.Util;
+import com.cg.mts.util.Util;
 import com.cg.mts.entities.Customer;
 import com.cg.mts.service.CustomerService;
 import com.cg.mts.service.ICustomerService;
+
+import java.util.List;
 
 
 public class AppMain {
@@ -30,9 +32,13 @@ public class AppMain {
         Customer c2 = customerService.insertCustomer(customer2);
 
 
-        System.out.println("New customer has" + c);
-        System.out.println("New customer with id 1 as: " + customerService.viewCustomer(2).getUsername());
-        System.out.println("The whole customer list is:" + customerService.viewCustomers().toString());
+        System.out.println("New customer has" + c.getUsername());
+        System.out.println("New customer with id 1 as: " + customerService.viewCustomer(1).getUsername());
+
+//        List<Customer> list = customerService.viewCustomers();
+//
+//        for (Customer list1 : list)
+//            System.out.println("The whole customer list is:" + list1.getUsername());
         //System.out.println("New customer deleted is " + customerService.deleteCustomer(c).getUsername());
 
 

@@ -5,7 +5,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 
-import com.cg.mts.dao.Util;
+import com.cg.mts.util.Util;
 import com.cg.mts.entities.Driver;
 
 public class DriverService implements IDriverService {

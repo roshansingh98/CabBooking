@@ -1,11 +1,8 @@
 package com.cg.mts.service;
 
-import com.cg.mts.dao.Util;
+import com.cg.mts.util.Util;
 import com.cg.mts.entities.Customer;
 import org.junit.jupiter.api.*;
-
-import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
 
 import static org.junit.jupiter.api.Assertions.*;
 

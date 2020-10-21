@@ -1,7 +1,7 @@
 package com.cg.mts.service;
 
 import com.cg.mts.dao.CustomerDao;
-import com.cg.mts.dao.Util;
+import com.cg.mts.util.Util;
 import com.cg.mts.entities.Customer;
 import com.cg.mts.exception.CustomerNotFoundException;
 import com.cg.mts.repository.ICustomerRepository;
@@ -83,6 +83,7 @@ public class CustomerService implements ICustomerService {
         } catch (CustomerNotFoundException e) {
             e.getMessage();
         }
+        ;
         return customer;
     }
 

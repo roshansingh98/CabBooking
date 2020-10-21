@@ -64,7 +64,7 @@ public class CustomerDao implements ICustomerRepository {
 
         Customer customer = entityManager.find(Customer.class, customerId);
 
-        return null;
+        return customer;
     }
 
     @Override

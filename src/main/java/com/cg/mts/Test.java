@@ -1,6 +1,4 @@
-package com.cg.mts.dao;
-
-import java.util.List;
+package com.cg.mts;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -9,8 +7,6 @@ import javax.persistence.Persistence;
 
 import com.cg.mts.entities.AbstractUser;
 import com.cg.mts.entities.Customer;
-import com.cg.mts.entities.Driver;
-import com.cg.mts.entities.TripBooking;
 import com.cg.mts.service.*;
 
 public class Test {
