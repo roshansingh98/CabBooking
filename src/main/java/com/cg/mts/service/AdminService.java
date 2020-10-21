@@ -11,8 +11,8 @@ import com.cg.mts.entities.TripBooking;
 
 public class AdminService implements IAdminService {
 
-	private EntityManager em;
-	EntityTransaction et;
+	private final EntityManager em;
+	private final EntityTransaction et;
 
 	public AdminService() {
 		Util util = Util.getInstance();

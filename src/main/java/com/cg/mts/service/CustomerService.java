@@ -1,13 +1,18 @@
 package com.cg.mts.service;
 
+import com.cg.mts.dao.CustomerDao;
 import com.cg.mts.dao.Util;
 import com.cg.mts.entities.Customer;
+import com.cg.mts.exception.CustomerNotFoundException;
+import com.cg.mts.repository.ICustomerRepository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import java.util.List;
 
 public class CustomerService implements ICustomerService {
+
+    private ICustomerRepository customerDao;
 
     private EntityManager em;
     EntityTransaction et;
@@ -16,12 +21,13 @@ public class CustomerService implements ICustomerService {
         Util util = Util.getInstance();
         em = util.getEntityManager();
         et = em.getTransaction();
+        customerDao = new CustomerDao(em);
     }
 
     @Override
     public Customer insertCustomer(Customer customer) {
         et.begin();
-        em.persist(customer);
+        customer = customerDao.insertCustomer(customer);
         et.commit();
         return customer;
     }
@@ -29,22 +35,37 @@ public class CustomerService implements ICustomerService {
     @Override
     public Customer updateCustomer(Customer customer) {
         et.begin();
-        em.merge(customer);
-        return null;
+
+        try {
+            customer = customerDao.updateCustomer(customer);
+        } catch (CustomerNotFoundException e) {
+            e.getMessage();
+        }
+
+        et.commit();
+
+        return customer;
     }
 
     @Override
     public Customer deleteCustomer(Customer customer) {
         et.begin();
-        em.remove(customer);
+
+        try {
+            customer = customerDao.deleteCustomer(customer);
+        } catch (CustomerNotFoundException e) {
+            e.getMessage();
+        }
+
         et.commit();
+
         return customer;
     }
 
     @Override
     public List<Customer> viewCustomers() {
         et.begin();
-        List<Customer> customers = em.createQuery("Select * from customer", Customer.class).getResultList();
+        List<Customer> customers = em.createQuery("Select a from Customer a", Customer.class).getResultList();
         et.commit();
         return customers;
     }
