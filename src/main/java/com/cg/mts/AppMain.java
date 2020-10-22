@@ -1,5 +1,9 @@
 package com.cg.mts;
 
+import com.cg.mts.entities.Admin;
+import com.cg.mts.repository.IAdminRepository;
+import com.cg.mts.service.AdminService;
+import com.cg.mts.service.IAdminService;
 import com.cg.mts.util.Util;
 import com.cg.mts.entities.Customer;
 import com.cg.mts.service.CustomerService;
@@ -13,13 +17,33 @@ public class AppMain {
     public static void main(String[] args) {
 
         AppMain appMain = new AppMain();
-        appMain.execute();
+//        appMain.executeCustomerService();
+        appMain.executeAdminServices();
 
         Util util = Util.getInstance();
         util.close();
     }
 
-    public void execute() {
+    private void executeAdminServices() {
+
+        Admin admin = new Admin("Admin", "123", "12345", "abc");
+        Admin admin1 = new Admin("Admin1", "123", "12345", "abc");
+        Admin admin2 = new Admin("Admin2", "123", "12345", "abc");
+
+
+        IAdminService adminService = new AdminService();
+        adminService.insertAdmin(admin);
+        adminService.insertAdmin(admin1);
+        adminService.insertAdmin(admin2);
+
+        Admin updateAdmin = new Admin("Updated admin", "1654", "4587", "khagdja");
+        //System.out.println(admin.getAdminId());
+        updateAdmin.setAdminId(admin.getAdminId());
+        //System.out.println(updateAdmin.getAdminId());
+        updateAdmin = adminService.updateAdmin(updateAdmin);
+    }
+
+    public void executeCustomerService() {
 
         Customer customer = new Customer("Customer", "123", "123456", "abc");
         Customer customer1 = new Customer("Customer1", "123", "123456", "abc");

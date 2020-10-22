@@ -12,12 +12,15 @@ public class Admin extends AbstractUser {
 	private int adminId;
 
 
-	public Admin(String username, String password, String mobileNumber, String email, int adminId) {
+	public Admin(String username, String password, String mobileNumber, String email) {
 		super(username, password, mobileNumber, email);
-		this.adminId = adminId;
 	}
 
 	public int getAdminId() {
 		return adminId;
+	}
+
+	public void setAdminId(int adminId) {
+		this.adminId = adminId;
 	}
 }
