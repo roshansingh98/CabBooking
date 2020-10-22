@@ -42,7 +42,7 @@ public class AdminService implements IAdminService {
 		try {
 			admin = adminDao.updateAdmin(admin);
 		} catch (AdminNotFoundException e) {
-			e.getMessage();
+			System.out.println(e.getMessage());
 		}
 		entityTransaction.commit();
 		return admin;
@@ -55,7 +55,7 @@ public class AdminService implements IAdminService {
 		try {
 			admin = adminDao.deleteAdmin(adminId);
 		} catch (AdminNotFoundException e) {
-			e.getMessage();
+			System.out.println(e.getMessage());
 		}
 		entityTransaction.commit();
 		return admin;
@@ -68,7 +68,7 @@ public class AdminService implements IAdminService {
 		try {
 			li = adminDao.getAllTrips(customerId);
 		} catch (CustomerNotFoundException e) {
-			e.getMessage();
+			System.out.println(e.getMessage());
 		}
 		entityTransaction.commit();
 		return li;
@@ -81,7 +81,7 @@ public class AdminService implements IAdminService {
 		try {
 			li = adminDao.getTripsCabwise();
 		} catch (CabNotFoundException e) {
-			e.getMessage();
+			System.out.println(e.getMessage());
 		}
 		entityTransaction.commit();
 		return li;
@@ -110,7 +110,7 @@ public class AdminService implements IAdminService {
 		try {
 			li = adminDao.getAllTripsForDays(customerId, fromDate, toDate);
 		} catch (CustomerNotFoundException e) {
-			e.getMessage();
+			System.out.println(e.getMessage());
 		}
 		entityTransaction.commit();
 		return li;

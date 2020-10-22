@@ -37,7 +37,7 @@ public class CabService implements ICabService {
 		try {
 			cab = cabDao.updateCab(cab);
 		} catch (CabNotFoundException e) {
-			e.getMessage();
+			System.out.println(e.getMessage());
 		}
 		entityTransaction.commit();
 		return cab;
@@ -49,7 +49,7 @@ public class CabService implements ICabService {
 		try {
 			cab = cabDao.deleteCab(cab);
 		} catch (CabNotFoundException e) {
-			e.getMessage();
+			System.out.println(e.getMessage());
 		}
 		entityTransaction.commit();
 		return cab;
@@ -62,7 +62,7 @@ public class CabService implements ICabService {
 		try {
 			listOfCabs = cabDao.viewCabsOfType(carType);
 		} catch (CabNotFoundException e) {
-			e.printStackTrace();
+			System.out.println(e.getMessage());
 		}
 		entityTransaction.commit();
 		return listOfCabs;

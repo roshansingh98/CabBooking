@@ -38,7 +38,7 @@ public class DriverService implements IDriverService {
 		try {
 			driver = driverDao.updateDriver(driver);
 		} catch (DriverNotFoundException e) {
-			e.getMessage();
+			System.out.println(e.getMessage());
 		}
 		entityTransaction.commit();
 		return driver;
@@ -51,7 +51,7 @@ public class DriverService implements IDriverService {
 		try {
 			driver = driverDao.deleteDriver(driverId);
 		} catch (DriverNotFoundException e) {
-			e.getMessage();
+			System.out.println(e.getMessage());
 		}
 		entityTransaction.commit();
 		return driver;
@@ -64,7 +64,7 @@ public class DriverService implements IDriverService {
 		try {
 			bestDrivers = driverDao.viewBestDrivers();
 		} catch (DriverNotFoundException e) {
-			e.getMessage();
+			System.out.println(e.getMessage());
 		}
 		entityTransaction.commit();
 		return bestDrivers;
@@ -77,7 +77,7 @@ public class DriverService implements IDriverService {
 		try {
 			driver = driverDao.viewDriver(driverId);
 		} catch (DriverNotFoundException e) {
-			e.printStackTrace();
+			System.out.println(e.getMessage());
 		}
 		entityTransaction.commit();
 		return driver;

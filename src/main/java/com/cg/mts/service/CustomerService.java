@@ -39,7 +39,7 @@ public class CustomerService implements ICustomerService {
         try {
             customer = customerDao.updateCustomer(customer);
         } catch (CustomerNotFoundException e) {
-            e.getMessage();
+            System.out.println(e.getMessage());
         }
 
         entityTransaction.commit();
@@ -55,7 +55,7 @@ public class CustomerService implements ICustomerService {
         try {
             customer = customerDao.deleteCustomer(customer);
         } catch (CustomerNotFoundException e) {
-            e.getMessage();
+            System.out.println(e.getMessage());
         }
 
         entityTransaction.commit();
@@ -71,7 +71,7 @@ public class CustomerService implements ICustomerService {
         try {
             customers = customerDao.viewCustomers();
         } catch (CustomerNotFoundException e) {
-            e.getMessage();
+            System.out.println(e.getMessage());
         }
         entityTransaction.commit();
         return customers;
@@ -83,7 +83,7 @@ public class CustomerService implements ICustomerService {
         try {
             customer = customerDao.viewCustomer(customerId);
         } catch (CustomerNotFoundException e) {
-            e.getMessage();
+            System.out.println(e.getMessage());
         }
         ;
         return customer;
@@ -95,7 +95,7 @@ public class CustomerService implements ICustomerService {
         try {
             customer = customerDao.validateCustomer(username, password);
         } catch (CustomerNotFoundException e) {
-            e.getMessage();
+            System.out.println(e.getMessage());
         }
         return customer;
     }
