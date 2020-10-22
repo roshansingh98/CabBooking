@@ -24,10 +24,9 @@ public class TripBooking {
 	private float distanceInKm;
 	private float bill;
 
-	public TripBooking(int tripBookingId, int customerId, Driver driver, String fromLocation, String toLocation,
+	public TripBooking(int customerId, Driver driver, String fromLocation, String toLocation,
 					   LocalDateTime fromDateTime, LocalDateTime toDateTime, boolean status, float distanceInKm, float bill) {
 		super();
-		this.tripBookingId = tripBookingId;
 		this.customerId = customerId;
 		this.driver = driver;
 		this.fromLocation = fromLocation;
@@ -39,6 +38,9 @@ public class TripBooking {
 		this.bill = bill;
 	}
 
+	public void setTripBookingId(int tripBookingId) {
+		this.tripBookingId = tripBookingId;
+	}
 
 	public int getTripBookingId() {
 		return tripBookingId;
@@ -113,6 +115,5 @@ public class TripBooking {
 	public void setBill(float bill) {
 		this.bill = bill;
 	}
-
 
 }

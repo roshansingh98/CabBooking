@@ -22,4 +22,7 @@ public class Customer extends AbstractUser {
 	}
 
 
+	public void setCustomerId(Integer customerId) {
+		this.customerId = customerId;
+	}
 }
