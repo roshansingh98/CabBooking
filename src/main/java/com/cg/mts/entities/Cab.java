@@ -15,9 +15,8 @@ public class Cab {
 	private String carType;
 	private float perKmRate;
 
-	public Cab(int cabId, String carType, float perKmRate) {
+	public Cab(String carType, float perKmRate) {
 		super();
-		this.cabId = cabId;
 		this.carType = carType;
 		this.perKmRate = perKmRate;
 	}

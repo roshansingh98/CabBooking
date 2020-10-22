@@ -1,27 +1,55 @@
 package com.cg.mts;
 
-import com.cg.mts.entities.Admin;
+import com.cg.mts.entities.*;
 import com.cg.mts.repository.IAdminRepository;
-import com.cg.mts.service.AdminService;
-import com.cg.mts.service.IAdminService;
+import com.cg.mts.service.*;
 import com.cg.mts.util.Util;
-import com.cg.mts.entities.Customer;
-import com.cg.mts.service.CustomerService;
-import com.cg.mts.service.ICustomerService;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 
 public class AppMain {
 
+    Cab cab = new Cab("Hatch", 15);
+    Cab cab1 = new Cab("SUV", 15);
+    Cab cab2 = new Cab("Sedan", 15);
+
+    Driver driver = new Driver("Uncle", "driver", "45845", "sfd", "fdsfs");
+    Driver driver1 = new Driver("Uncle1", "driverUnc", "45845", "sfd", "fdsfs");
+    Driver driver2 = new Driver("Uncle2", "driver2", "45845", "sfd", "fdsfs");
+
     public static void main(String[] args) {
 
         AppMain appMain = new AppMain();
 //        appMain.executeCustomerService();
-        appMain.executeAdminServices();
+        appMain.executeCabServices();
+        appMain.executeDriverService();
+//        appMain.executeAdminServices();
 
         Util util = Util.getInstance();
         util.close();
+    }
+
+    private void executeDriverService() {
+
+        IDriverService driverService = new DriverService();
+        driver.setCab(cab);
+        driverService.insertDriver(driver);
+        driver1.setCab(cab1);
+        driverService.insertDriver(driver1);
+        driver2.setCab(cab2);
+        driverService.insertDriver(driver2);
+
+    }
+
+    private void executeCabServices() {
+
+        ICabService cabService = new CabService();
+        cabService.insertCab(cab);
+        cabService.insertCab(cab1);
+        cabService.insertCab(cab2);
+
     }
 
     private void executeAdminServices() {
@@ -40,7 +68,15 @@ public class AppMain {
         updateAdmin.setAdminId(admin.getAdminId());
         adminService.updateAdmin(updateAdmin);
 
+        adminService.deleteAdmin(admin1.getAdminId());
 
+        LocalDateTime localDateTime = LocalDateTime.now();
+
+        TripBooking tripBooking = new TripBooking(admin2.getAdminId(), driver, "Mumbai", "Delhi", localDateTime, localDateTime.plusDays(3), true, 1200, 10000);
+        ITripBookingService tripBookingService = new TripBookingService();
+        tripBookingService.insertTripBooking(tripBooking);
+
+        System.out.println(adminService.getAllTrips(admin2.getAdminId()));
     }
 
     public void executeCustomerService() {

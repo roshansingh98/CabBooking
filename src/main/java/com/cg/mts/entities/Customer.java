@@ -1,14 +1,12 @@
 package com.cg.mts.entities;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
+@NamedQuery(query = "select c from Customer c where c.username = :Username and c.password = :Password", name = "find customer by username and password")
 public class Customer extends AbstractUser {
 
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue
 	@Id
 	private Integer customerId;
 

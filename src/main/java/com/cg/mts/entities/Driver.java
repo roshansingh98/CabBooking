@@ -18,10 +18,11 @@ public class Driver extends AbstractUser {
 	private List<TripBooking> list;
 
 
-	public Driver(String username, String password, String mobileNumber, String email, String licenseNo, Cab cab) {
+	public Driver(String username, String password, String mobileNumber, String email, String licenseNo, Cab cab, float rating) {
 		super(username, password, mobileNumber, email);
 		this.licenseNo = licenseNo;
 		this.cab = cab;
+		this.rating = rating;
 	}
 
 	public void setDriverId(int driverId) {
