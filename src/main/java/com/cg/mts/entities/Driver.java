@@ -25,6 +25,10 @@ public class Driver extends AbstractUser {
 		this.rating = rating;
 	}
 
+	public Driver() {
+
+	}
+
 	public void setDriverId(int driverId) {
 		this.driverId = driverId;
 	}

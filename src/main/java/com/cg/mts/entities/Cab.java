@@ -21,6 +21,10 @@ public class Cab {
 		this.perKmRate = perKmRate;
 	}
 
+	public Cab() {
+
+	}
+
 	public void setCabId(int cabId) {
 		this.cabId = cabId;
 	}

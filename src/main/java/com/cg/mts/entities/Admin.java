@@ -16,6 +16,9 @@ public class Admin extends AbstractUser {
 		super(username, password, mobileNumber, email);
 	}
 
+	public Admin() {
+	}
+
 	public int getAdminId() {
 		return adminId;
 	}

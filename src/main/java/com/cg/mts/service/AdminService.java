@@ -4,6 +4,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.cg.mts.dao.AdminDao;
@@ -43,6 +44,8 @@ public class AdminService implements IAdminService {
 			admin = adminDao.updateAdmin(admin);
 		} catch (AdminNotFoundException e) {
 			System.out.println(e.getMessage());
+			entityTransaction.commit();
+			return new Admin();
 		}
 		entityTransaction.commit();
 		return admin;
@@ -56,6 +59,8 @@ public class AdminService implements IAdminService {
 			admin = adminDao.deleteAdmin(adminId);
 		} catch (AdminNotFoundException e) {
 			System.out.println(e.getMessage());
+			entityTransaction.commit();
+			return new Admin();
 		}
 		entityTransaction.commit();
 		return admin;
@@ -69,6 +74,8 @@ public class AdminService implements IAdminService {
 			li = adminDao.getAllTrips(customerId);
 		} catch (CustomerNotFoundException e) {
 			System.out.println(e.getMessage());
+			entityTransaction.commit();
+			return new ArrayList<TripBooking>();
 		}
 		entityTransaction.commit();
 		return li;
@@ -82,6 +89,8 @@ public class AdminService implements IAdminService {
 			li = adminDao.getTripsCabwise();
 		} catch (CabNotFoundException e) {
 			System.out.println(e.getMessage());
+			entityTransaction.commit();
+			return new ArrayList<TripBooking>();
 		}
 		entityTransaction.commit();
 		return li;
@@ -111,6 +120,8 @@ public class AdminService implements IAdminService {
 			li = adminDao.getAllTripsForDays(customerId, fromDate, toDate);
 		} catch (CustomerNotFoundException e) {
 			System.out.println(e.getMessage());
+			entityTransaction.commit();
+			return new ArrayList<TripBooking>();
 		}
 		entityTransaction.commit();
 		return li;

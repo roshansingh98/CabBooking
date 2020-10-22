@@ -1,5 +1,6 @@
 package com.cg.mts.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -38,6 +39,8 @@ public class CabService implements ICabService {
 			cab = cabDao.updateCab(cab);
 		} catch (CabNotFoundException e) {
 			System.out.println(e.getMessage());
+			entityTransaction.commit();
+			return new Cab();
 		}
 		entityTransaction.commit();
 		return cab;
@@ -50,6 +53,8 @@ public class CabService implements ICabService {
 			cab = cabDao.deleteCab(cab);
 		} catch (CabNotFoundException e) {
 			System.out.println(e.getMessage());
+			entityTransaction.commit();
+			return new Cab();
 		}
 		entityTransaction.commit();
 		return cab;
@@ -63,6 +68,8 @@ public class CabService implements ICabService {
 			listOfCabs = cabDao.viewCabsOfType(carType);
 		} catch (CabNotFoundException e) {
 			System.out.println(e.getMessage());
+			entityTransaction.commit();
+			return new ArrayList<Cab>();
 		}
 		entityTransaction.commit();
 		return listOfCabs;

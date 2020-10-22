@@ -8,6 +8,7 @@ import com.cg.mts.repository.ICustomerRepository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import java.util.ArrayList;
 import java.util.List;
 
 public class CustomerService implements ICustomerService {
@@ -40,6 +41,8 @@ public class CustomerService implements ICustomerService {
             customer = customerDao.updateCustomer(customer);
         } catch (CustomerNotFoundException e) {
             System.out.println(e.getMessage());
+            entityTransaction.commit();
+            return new Customer();
         }
 
         entityTransaction.commit();
@@ -56,6 +59,8 @@ public class CustomerService implements ICustomerService {
             customer = customerDao.deleteCustomer(customer);
         } catch (CustomerNotFoundException e) {
             System.out.println(e.getMessage());
+            entityTransaction.commit();
+            return new Customer();
         }
 
         entityTransaction.commit();
@@ -72,6 +77,8 @@ public class CustomerService implements ICustomerService {
             customers = customerDao.viewCustomers();
         } catch (CustomerNotFoundException e) {
             System.out.println(e.getMessage());
+            entityTransaction.commit();
+            return new ArrayList<Customer>();
         }
         entityTransaction.commit();
         return customers;
@@ -84,8 +91,8 @@ public class CustomerService implements ICustomerService {
             customer = customerDao.viewCustomer(customerId);
         } catch (CustomerNotFoundException e) {
             System.out.println(e.getMessage());
+            return new Customer();
         }
-        ;
         return customer;
     }
 
@@ -96,6 +103,7 @@ public class CustomerService implements ICustomerService {
             customer = customerDao.validateCustomer(username, password);
         } catch (CustomerNotFoundException e) {
             System.out.println(e.getMessage());
+            return new Customer();
         }
         return customer;
     }
