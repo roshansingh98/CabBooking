@@ -99,9 +99,9 @@ public class AdminDao implements IAdminRepository {
     @Override
     public List<TripBooking> getAllTripsForDays(int customerId, LocalDateTime fromDate, LocalDateTime toDate) throws CustomerNotFoundException {
 
-        TripBooking tripsPerCustomer = entityManager.find(TripBooking.class, customerId);
+        //List<Customer> list = entityManager.createQuery("Select a from tripbooking where customerId")
 
-        if (tripsPerCustomer == null) {
+        if (entityManager.find(Customer.class, customerId) == null) {
             throw new CustomerNotFoundException("Cant find the customer with the given ID");
         }
 

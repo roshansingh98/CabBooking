@@ -4,6 +4,7 @@ import com.cg.mts.entities.*;
 import com.cg.mts.repository.IAdminRepository;
 import com.cg.mts.service.*;
 import com.cg.mts.util.Util;
+import com.sun.corba.se.spi.activation.ServerOperations;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -15,17 +16,14 @@ public class AppMain {
     Cab cab1 = new Cab("SUV", 15);
     Cab cab2 = new Cab("Sedan", 15);
 
-    Driver driver = new Driver("Uncle", "driver", "45845", "sfd", "fdsfs", cab, 4);
-    Driver driver1 = new Driver("Uncle1", "driverUnc", "45845", "sfd", "fdsfs", cab1, 4);
-    Driver driver2 = new Driver("Uncle2", "driver2", "45845", "sfd", "fdsfs", cab2, 4);
 
     public static void main(String[] args) {
 
         AppMain appMain = new AppMain();
 //        appMain.executeCustomerService();
-        appMain.executeCabServices();
-        appMain.executeDriverService();
-//        appMain.executeAdminServices();
+//        appMain.executeCabServices();
+//        appMain.executeDriverService();
+        appMain.executeAdminServices();
 
         Util util = Util.getInstance();
         util.close();
@@ -79,25 +77,43 @@ public class AppMain {
         Admin admin1 = new Admin("Admin1", "123", "12345", "abc");
         Admin admin2 = new Admin("Admin2", "123", "12345", "abc");
 
-
+        //Use of insertion
         IAdminService adminService = new AdminService();
         adminService.insertAdmin(admin);
         adminService.insertAdmin(admin1);
         adminService.insertAdmin(admin2);
 
+        //Use of updating
         Admin updateAdmin = new Admin("Updated admin", "1654", "4587", "khagdja");
         updateAdmin.setAdminId(admin.getAdminId());
         adminService.updateAdmin(updateAdmin);
 
+        //Use of deletion
         adminService.deleteAdmin(admin1.getAdminId());
 
-        LocalDateTime localDateTime = LocalDateTime.now();
+        //Use of getAllTrips
+        Customer customer = new Customer("Cust1", "pass", "dsdcsd", "cscdsc");
+        ICustomerService customerService = new CustomerService();
+        customer = customerService.insertCustomer(customer);
 
-        TripBooking tripBooking = new TripBooking(admin2.getAdminId(), driver, "Mumbai", "Delhi", localDateTime, localDateTime.plusDays(3), true, 1200, 10000);
+        LocalDateTime localDateTime = LocalDateTime.now();
+        Cab cab = new Cab("Hatch", 15);
+        Driver driver = new Driver("Uncle", "driver", "45845", "sfd", "fdsfs", cab, 4);
+
+        TripBooking tripBooking = new TripBooking(4, driver, "Mumbai", "Delhi", localDateTime, localDateTime.plusDays(3), true, 1200, 10000);
+        TripBooking tripBooking2 = new TripBooking(4, driver, "Delhi", "Mumbai", localDateTime.minusDays(5), localDateTime.plusDays(10), true, 1200, 10000);
         ITripBookingService tripBookingService = new TripBookingService();
         tripBookingService.insertTripBooking(tripBooking);
+        tripBookingService.insertTripBooking(tripBooking2);
 
-        System.out.println(adminService.getAllTrips(admin2.getAdminId()));
+        System.out.println(adminService.getAllTrips(customer.getCustomerId()));
+
+        //Use of getAllTripsCabWise
+        System.out.println(adminService.getTripsCabwise());
+
+        //Use of getAllTripsDayWise
+        System.out.println("id" + customer.getCustomerId());
+        System.out.println("For days: " + adminService.getAllTripsForDays(4, localDateTime, localDateTime.plusDays(3)));
     }
 
     public void executeCustomerService() {
