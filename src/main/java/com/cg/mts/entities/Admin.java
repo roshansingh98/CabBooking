@@ -17,6 +17,7 @@ public class Admin extends AbstractUser {
 	}
 
 	public Admin() {
+		super();
 	}
 
 	public int getAdminId() {

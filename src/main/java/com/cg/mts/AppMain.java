@@ -15,9 +15,9 @@ public class AppMain {
     Cab cab1 = new Cab("SUV", 15);
     Cab cab2 = new Cab("Sedan", 15);
 
-    Driver driver = new Driver("Uncle", "driver", "45845", "sfd", "fdsfs");
-    Driver driver1 = new Driver("Uncle1", "driverUnc", "45845", "sfd", "fdsfs");
-    Driver driver2 = new Driver("Uncle2", "driver2", "45845", "sfd", "fdsfs");
+    Driver driver = new Driver("Uncle", "driver", "45845", "sfd", "fdsfs", cab, 4);
+    Driver driver1 = new Driver("Uncle1", "driverUnc", "45845", "sfd", "fdsfs", cab1, 4);
+    Driver driver2 = new Driver("Uncle2", "driver2", "45845", "sfd", "fdsfs", cab2, 4);
 
     public static void main(String[] args) {
 
@@ -33,12 +33,33 @@ public class AppMain {
 
     private void executeDriverService() {
 
+        /*Cab cab = new Cab("ABC", 1.0f);
+        Driver driver = new Driver("cab", "cab1", "Cab2", "Cab3", "Cab4", cab, 4.5f);
         IDriverService driverService = new DriverService();
-        driver.setCab(cab);
         driverService.insertDriver(driver);
-        driver1.setCab(cab1);
+        driverService.deleteDriver(6);
+        Driver driver2 = new Driver("cab", "cab1", "Cab3", "Cab3", "Cab3", cab, 4.0f);
+        driver2.setDriverId(driver.getDriverId());
+        driverService.updateDriver(driver2);
+        List<Driver> drivers = driverService.viewBestDrivers();
+        for(Driver dd: drivers) {
+            System.out.println(dd.getEmail());
+        }
+        drivers = driverService.viewBestDrivers();
+        Driver ddd = driverService.viewDriver(driver2.getDriverId());
+        System.out.print(ddd.getLicenseNo());*/
+
+        Cab cab = new Cab("Hatch", 15);
+        Cab cab1 = new Cab("SUV", 15);
+        Cab cab2 = new Cab("Sedan", 15);
+
+        Driver driver = new Driver("Uncle", "driver", "45845", "sfd", "fdsfs", cab, 4);
+        Driver driver1 = new Driver("Uncle1", "driverUnc", "45845", "sfd", "fdsfs", cab1, 4);
+        Driver driver2 = new Driver("Uncle2", "driver2", "45845", "sfd", "fdsfs", cab2, 4);
+
+        IDriverService driverService = new DriverService();
+        driverService.insertDriver(driver);
         driverService.insertDriver(driver1);
-        driver2.setCab(cab2);
         driverService.insertDriver(driver2);
 
     }
@@ -46,9 +67,9 @@ public class AppMain {
     private void executeCabServices() {
 
         ICabService cabService = new CabService();
-        cabService.insertCab(cab);
-        cabService.insertCab(cab1);
-        cabService.insertCab(cab2);
+        Cab one = cabService.insertCab(cab);
+        Cab two = cabService.insertCab(cab1);
+        Cab three = cabService.insertCab(cab2);
 
     }
 

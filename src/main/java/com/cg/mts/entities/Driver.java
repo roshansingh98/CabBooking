@@ -26,7 +26,7 @@ public class Driver extends AbstractUser {
 	}
 
 	public Driver() {
-
+		super();
 	}
 
 	public void setDriverId(int driverId) {

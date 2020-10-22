@@ -15,7 +15,7 @@ public class Customer extends AbstractUser {
 	}
 
 	public Customer() {
-
+		super();
 	}
 
 
