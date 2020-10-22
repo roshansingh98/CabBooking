@@ -12,6 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class CustomerServiceTest {
 
+
     //This test accomplishes to check for correct insertion and also retrieving the data by id
     @Test
     public void testForSuccessfulInsertionAndRetrieval() {
@@ -27,14 +28,10 @@ class CustomerServiceTest {
     public void testForInsertCustomer() {
 
         Customer customer = new Customer("Username", "Password", "84569745", "xyz@gmail.com");
-//        Customer customer1 = new Customer("User" , "Pass" , "84569745" , "xyz@gmail.com");
-//        Customer customer2 = new Customer("newUsername" , "Passw" , "84569745" , "xyz@gmail.com");
 
         ICustomerService customerService = new CustomerService();
 
         assertEquals(customer, customerService.insertCustomer(customer));
-//        customerService.insertCustomer(customer1);
-//        customerService.insertCustomer(customer2);
 
     }
 
