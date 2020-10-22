@@ -17,9 +17,9 @@ class DriverServiceTest {
     @Test
     public void testForCrudOp() {
 
-        Driver driver = new Driver("username", "password", "84594455", "asd@fdhg", "XYZ", cab, 4.6f);
-        Driver driver1 = new Driver("user", "password", "84594455", "asd@fdhg", "XYZ", cab1, 4.0f);
-        Driver driver2 = new Driver("usernam", "password", "84594455", "asd@fdhg", "XYZ", cab2, 4.9f);
+        Driver driver = new Driver("username", "password", "9600456781", "asd@fdhg", "XYZ", cab, 4.6f);
+        Driver driver1 = new Driver("userShort", "password", "9600456781", "asd@fdhg", "XYZ", cab1, 4.0f);
+        Driver driver2 = new Driver("usernam", "password", "9600456781", "asd@fdhg", "XYZ", cab2, 4.9f);
 
         IDriverService driverService = new DriverService();
 
@@ -27,7 +27,7 @@ class DriverServiceTest {
         driverService.insertDriver(driver1);
         driverService.insertDriver(driver2);
 
-        Driver driver3 = new Driver("updatedUser", "password", "84594455", "asd@fdhg", "XYZ", cab, 4.6f);
+        Driver driver3 = new Driver("updatedUser", "password", "9600456781", "asd@fdhg", "XYZ", cab, 4.6f);
         driver3.setDriverId(driver.getDriverId());
         assertEquals("updatedUser", driverService.updateDriver(driver3).getUsername());
 
@@ -40,9 +40,9 @@ class DriverServiceTest {
     @Test
     public void testForGetBestDrivers() {
 
-        Driver driver = new Driver("username", "password", "84594455", "asd@fdhg", "XYZ", cab, 4.6f);
-        Driver driver1 = new Driver("user", "password", "84594455", "asd@fdhg", "XYZ", cab1, 4.0f);
-        Driver driver2 = new Driver("usernam", "password", "84594455", "asd@fdhg", "XYZ", cab2, 4.9f);
+        Driver driver = new Driver("username", "password", "9600456781", "asd@fdhg", "XYZ", cab, 4.6f);
+        Driver driver1 = new Driver("userShort", "password", "9600456781", "asd@fdhg", "XYZ", cab1, 4.0f);
+        Driver driver2 = new Driver("usernam", "password", "9600456781", "asd@fdhg", "XYZ", cab2, 4.9f);
 
         IDriverService driverService = new DriverService();
 
@@ -56,9 +56,9 @@ class DriverServiceTest {
     @Test
     public void testForViewDriver() {
 
-        Driver driver = new Driver("username", "password", "84594455", "asd@fdhg", "XYZ", cab, 4.6f);
-        Driver driver1 = new Driver("user", "password", "84594455", "asd@fdhg", "XYZ", cab1, 4.0f);
-        Driver driver2 = new Driver("usernam", "password", "84594455", "asd@fdhg", "XYZ", cab2, 4.9f);
+        Driver driver = new Driver("username", "password", "9600456781", "asd@fdhg", "XYZ", cab, 4.6f);
+        Driver driver1 = new Driver("userShort", "password", "9600456781", "asd@fdhg", "XYZ", cab1, 4.0f);
+        Driver driver2 = new Driver("usernam", "password", "9600456781", "asd@fdhg", "XYZ", cab2, 4.9f);
 
         IDriverService driverService = new DriverService();
 
@@ -66,7 +66,7 @@ class DriverServiceTest {
         driverService.insertDriver(driver1);
         driverService.insertDriver(driver2);
 
-        assertEquals("user", driverService.viewDriver(driver1.getDriverId()).getUsername());
+        assertEquals("userShort", driverService.viewDriver(driver1.getDriverId()).getUsername());
 
     }
 

@@ -16,7 +16,7 @@ class CustomerServiceTest {
     //This test accomplishes to check for correct insertion and also retrieving the data by id
     @Test
     public void testForSuccessfulInsertionAndRetrieval() {
-        Customer customer = new Customer("Customer", "123", "123456", "abc");
+        Customer customer = new Customer("Customer", "123456", "9600456781", "abc@gmail.com");
 
         ICustomerService customerService = new CustomerService();
         Customer c = customerService.insertCustomer(customer);
@@ -27,7 +27,7 @@ class CustomerServiceTest {
     @Test
     public void testForInsertCustomer() {
 
-        Customer customer = new Customer("Username", "Password", "84569745", "xyz@gmail.com");
+        Customer customer = new Customer("Username", "Password", "9600456781", "xyz@gmail.com");
 
         ICustomerService customerService = new CustomerService();
 
@@ -39,9 +39,9 @@ class CustomerServiceTest {
     @Test
     public void testForCorrectUpdating() {
 
-        Customer customer = new Customer("Username", "Password", "84569745", "xyz@gmail.com");
-        Customer customer1 = new Customer("User", "Pass", "84569745", "xyz@gmail.com");
-        Customer customer2 = new Customer("newUsername", "Passw", "84569745", "xyz@gmail.com");
+        Customer customer = new Customer("Username", "Password", "9600456781", "xyz@gmail.com");
+        Customer customer1 = new Customer("UserShort", "PassShort", "9600456781", "xyz@gmail.com");
+        Customer customer2 = new Customer("newUsername", "PassWo", "9600456781", "xyz@gmail.com");
 
         ICustomerService customerService = new CustomerService();
 
@@ -49,7 +49,7 @@ class CustomerServiceTest {
         customerService.insertCustomer(customer1);
         customerService.insertCustomer(customer2);
 
-        Customer newCustomer = new Customer("updatedCustomer", "newPass", "648644564", "adsdaf@fsdf.com");
+        Customer newCustomer = new Customer("updatedCustomer", "newPass", "9600456781", "adsdaf@fsdf.com");
         newCustomer.setCustomerId(customer1.getCustomerId());
 
         assertEquals("updatedCustomer", customerService.updateCustomer(newCustomer).getUsername());
@@ -59,9 +59,9 @@ class CustomerServiceTest {
     @Test
     public void testForCorrectDeletion() {
 
-        Customer customer = new Customer("Username", "Password", "84569745", "xyz@gmail.com");
-        Customer customer1 = new Customer("User", "Pass", "84569745", "xyz@gmail.com");
-        Customer customer2 = new Customer("newUsername", "Passw", "84569745", "xyz@gmail.com");
+        Customer customer = new Customer("Username", "Password", "9600456781", "xyz@gmail.com");
+        Customer customer1 = new Customer("UserShort", "PassShort", "9600456781", "xyz@gmail.com");
+        Customer customer2 = new Customer("newUsername", "PassWo", "9600456781", "xyz@gmail.com");
 
         ICustomerService customerService = new CustomerService();
 
@@ -82,9 +82,9 @@ class CustomerServiceTest {
     @Test
     public void testForViewCustomers() {
 
-        Customer customer = new Customer("Username", "Password", "84569745", "xyz@gmail.com");
-        Customer customer1 = new Customer("User", "Pass", "84569745", "xyz@gmail.com");
-        Customer customer2 = new Customer("newUsername", "Passw", "84569745", "xyz@gmail.com");
+        Customer customer = new Customer("Username", "Password", "9600456781", "xyz@gmail.com");
+        Customer customer1 = new Customer("UserShort", "PassShort", "9600456781", "xyz@gmail.com");
+        Customer customer2 = new Customer("newUsername", "PassWo", "9600456781", "xyz@gmail.com");
 
         ICustomerService customerService = new CustomerService();
 

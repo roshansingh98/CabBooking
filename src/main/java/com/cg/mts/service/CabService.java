@@ -8,6 +8,7 @@ import javax.persistence.EntityTransaction;
 
 import com.cg.mts.dao.CabDao;
 import com.cg.mts.exception.CabNotFoundException;
+import com.cg.mts.exception.InvalidCabException;
 import com.cg.mts.repository.ICabRepository;
 import com.cg.mts.util.Util;
 import com.cg.mts.entities.Cab;
@@ -25,6 +26,16 @@ public class CabService implements ICabService {
 	}
 
 	public Cab insertCab(Cab cab) {
+
+		try {
+			if (cab.getCarType() == null) {
+				throw new InvalidCabException("Cab cannot be null");
+			}
+		} catch (InvalidCabException e) {
+			System.out.println(e.getMessage());
+			return new Cab();
+		}
+
 		EntityTransaction entityTransaction = entityManager.getTransaction();
 		entityTransaction.begin();
 		cab = cabDao.insertCab(cab);

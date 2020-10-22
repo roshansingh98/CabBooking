@@ -13,14 +13,15 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class AdminServiceTest {
 
-    Admin admin = new Admin("Admin", "123", "12345", "abcde");
-    Admin admin1 = new Admin("Admin1", "123", "12345", "abc");
-    Admin admin2 = new Admin("Admin2", "123", "12345", "abc");
+    Admin admin = new Admin("firstAdmin", "123456", "9600456781", "abcde@gmail.com");
+    Admin admin1 = new Admin("Admin1", "123456", "9600456782", "abc@gmail.com");
+    Admin admin2 = new Admin("Admin2", "123456", "9600456783", "abc@gmail.com");
 
     IAdminService adminService = new AdminService();
 
     @Test
     public void testForCorrectInsertion() {
+        //Admin admin = new Admin("firstAdmin", "123456", "9660456783", "abcde@gmail.com");
         assertEquals(admin, adminService.insertAdmin(admin));
         assertNotEquals(admin1, adminService.insertAdmin(admin));
     }
@@ -31,7 +32,7 @@ class AdminServiceTest {
         adminService.insertAdmin(admin1);
         adminService.insertAdmin(admin2);
 
-        Admin updateAdmin = new Admin("Updated admin", "1654", "4587", "khagdja");
+        Admin updateAdmin = new Admin("Updated admin", "123456", "9600456781", "khagdja@gmail.com");
         updateAdmin.setAdminId(admin.getAdminId());
         //System.out.println("Updated here" + adminService.updateAdmin(updateAdmin).getAdminId());
         assertEquals(1, adminService.updateAdmin(updateAdmin).getAdminId());
@@ -51,13 +52,13 @@ class AdminServiceTest {
     @Test
     public void testForGetAllTrips() {
 
-        Customer customer = new Customer("Cust1", "pass", "dsdcsd", "cscdsc");
+        Customer customer = new Customer("Customer1", "password", "9600456781", "cscdsc@gmail.com");
         ICustomerService customerService = new CustomerService();
         customer = customerService.insertCustomer(customer);
 
         LocalDateTime localDateTime = LocalDateTime.now();
         Cab cab = new Cab("Hatch", 15);
-        Driver driver = new Driver("Uncle", "driver", "45845", "sfd", "fdsfs", cab, 4);
+        Driver driver = new Driver("UncleDriver", "driver", "9600456781", "sfd@gmail.com", "fdsfs", cab, 4);
 
         TripBooking tripBooking = new TripBooking(customer.getCustomerId(), driver, "Mumbai", "Delhi", localDateTime, localDateTime.plusDays(3), true, 1200, 10000);
         TripBooking tripBooking2 = new TripBooking(customer.getCustomerId(), driver, "Delhi", "Mumbai", localDateTime.minusDays(5), localDateTime.plusDays(10), true, 1200, 10000);
@@ -77,13 +78,13 @@ class AdminServiceTest {
 
     @Test
     public void testForGetAllTripsCabWise() {
-        Customer customer = new Customer("Cust1", "pass", "dsdcsd", "cscdsc");
+        Customer customer = new Customer("Customer1", "password", "9600456781", "cscdsc@gmail.com");
         ICustomerService customerService = new CustomerService();
         customer = customerService.insertCustomer(customer);
 
         LocalDateTime localDateTime = LocalDateTime.now();
         Cab cab = new Cab("Hatch", 15);
-        Driver driver = new Driver("Uncle", "driver", "45845", "sfd", "fdsfs", cab, 4);
+        Driver driver = new Driver("UncleDriver", "driver", "9600456781", "sfd@gmail.com", "fdsfs", cab, 4);
 
         TripBooking tripBooking = new TripBooking(customer.getCustomerId(), driver, "Mumbai", "Delhi", localDateTime, localDateTime.plusDays(3), true, 1200, 10000);
         TripBooking tripBooking2 = new TripBooking(customer.getCustomerId(), driver, "Delhi", "Mumbai", localDateTime.minusDays(5), localDateTime.plusDays(10), true, 1200, 10000);
@@ -104,13 +105,13 @@ class AdminServiceTest {
     @Test
     public void testForGetAllTripsForDays() {
 
-        Customer customer = new Customer("Cust1", "pass", "dsdcsd", "cscdsc");
+        Customer customer = new Customer("Customer1", "password", "9600456781", "cscdsc@gmail.com");
         ICustomerService customerService = new CustomerService();
         customer = customerService.insertCustomer(customer);
 
         LocalDateTime localDateTime = LocalDateTime.now();
         Cab cab = new Cab("Hatch", 15);
-        Driver driver = new Driver("Uncle", "driver", "45845", "sfd", "fdsfs", cab, 4);
+        Driver driver = new Driver("UncleDriver", "driver", "9600456781", "sfd@gmail.com", "fdsfs", cab, 4);
 
         TripBooking tripBooking = new TripBooking(customer.getCustomerId(), driver, "Mumbai", "Delhi", localDateTime, localDateTime.plusDays(3), true, 1200, 10000);
         TripBooking tripBooking2 = new TripBooking(customer.getCustomerId(), driver, "Delhi", "Mumbai", localDateTime.minusDays(5), localDateTime.plusDays(10), true, 1200, 10000);
@@ -118,7 +119,8 @@ class AdminServiceTest {
         tripBookingService.insertTripBooking(tripBooking);
         tripBookingService.insertTripBooking(tripBooking2);
 
-        System.out.println("For days: " + adminService.getAllTripsForDays(customer.getCustomerId(), localDateTime, localDateTime.plusDays(3)));
+//        System.out.println("For days: " + adminService.getAllTripsForDays(customer.getCustomerId(), localDateTime, localDateTime.plusDays(3)));
+        assertEquals(1, adminService.getAllTripsForDays(customer.getCustomerId(), localDateTime, localDateTime.plusDays(3)).size());
 
     }
 
