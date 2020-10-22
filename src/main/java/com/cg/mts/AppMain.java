@@ -86,7 +86,7 @@ public class AppMain {
         //Use of updating
         Admin updateAdmin = new Admin("Updated admin", "1654", "4587", "khagdja");
         updateAdmin.setAdminId(admin.getAdminId());
-        adminService.updateAdmin(updateAdmin);
+        System.out.println("Updated here" + adminService.updateAdmin(updateAdmin).getAdminId());
 
         //Use of deletion
         adminService.deleteAdmin(admin1.getAdminId());
