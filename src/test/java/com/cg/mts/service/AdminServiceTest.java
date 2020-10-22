@@ -44,7 +44,7 @@ class AdminServiceTest {
         adminService.insertAdmin(admin2);
 
         adminService.deleteAdmin(2);
-
+        //it checks for successful deletion by trying to delete the same element again which isnt there
         assertEquals(0, adminService.deleteAdmin(2).getAdminId());
     }
 
