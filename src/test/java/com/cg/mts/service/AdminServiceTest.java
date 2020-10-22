@@ -99,4 +99,25 @@ class AdminServiceTest {
         assertArrayEquals(new Integer[]{4, 4}, cabIdArray.toArray());
     }
 
+    @Test
+    public void testForGetAllTripsForDays() {
+
+        Customer customer = new Customer("Cust1", "pass", "dsdcsd", "cscdsc");
+        ICustomerService customerService = new CustomerService();
+        customer = customerService.insertCustomer(customer);
+
+        LocalDateTime localDateTime = LocalDateTime.now();
+        Cab cab = new Cab("Hatch", 15);
+        Driver driver = new Driver("Uncle", "driver", "45845", "sfd", "fdsfs", cab, 4);
+
+        TripBooking tripBooking = new TripBooking(customer.getCustomerId(), driver, "Mumbai", "Delhi", localDateTime, localDateTime.plusDays(3), true, 1200, 10000);
+        TripBooking tripBooking2 = new TripBooking(customer.getCustomerId(), driver, "Delhi", "Mumbai", localDateTime.minusDays(5), localDateTime.plusDays(10), true, 1200, 10000);
+        ITripBookingService tripBookingService = new TripBookingService();
+        tripBookingService.insertTripBooking(tripBooking);
+        tripBookingService.insertTripBooking(tripBooking2);
+
+        System.out.println("For days: " + adminService.getAllTripsForDays(customer.getCustomerId(), localDateTime, localDateTime.plusDays(3)));
+
+    }
+
 }

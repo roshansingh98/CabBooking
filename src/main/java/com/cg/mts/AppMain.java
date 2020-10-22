@@ -113,7 +113,7 @@ public class AppMain {
 
         //Use of getAllTripsDayWise
         System.out.println("id" + customer.getCustomerId());
-        System.out.println("For days: " + adminService.getAllTripsForDays(4, localDateTime, localDateTime.plusDays(3)));
+        System.out.println("For days: " + adminService.getAllTripsForDays(customer.getCustomerId(), localDateTime, localDateTime.plusDays(3)));
     }
 
     public void executeCustomerService() {
