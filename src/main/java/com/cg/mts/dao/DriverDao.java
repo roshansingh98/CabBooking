@@ -53,7 +53,8 @@ public class DriverDao implements IDriverRepository {
 
     @Override
     public List<Driver> viewBestDrivers() throws DriverNotFoundException {
-        List<Driver> bestDrivers = entityManager.createQuery("Select a from Driver a where a.rating >=4.5f", Driver.class).getResultList();
+        List<Driver> bestDrivers = entityManager
+                .createQuery("Select a from Driver a where a.rating >=4.5f", Driver.class).getResultList();
         if (bestDrivers.size() == 0) {
             throw new DriverNotFoundException("No Drivers with best rating");
         }

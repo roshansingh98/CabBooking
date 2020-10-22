@@ -5,6 +5,7 @@ import com.cg.mts.exception.CustomerNotFoundException;
 import com.cg.mts.repository.ICustomerRepository;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import java.util.List;
 
 public class CustomerDao implements ICustomerRepository {
@@ -42,9 +43,9 @@ public class CustomerDao implements ICustomerRepository {
     public Customer deleteCustomer(Customer customer) throws CustomerNotFoundException {
 //        boolean success = checkExists(customer.getMobileNumber());
 
-        Customer currentCustomer = entityManager.find(Customer.class, customer.getCustomerId());
+        customer = entityManager.find(Customer.class, customer.getCustomerId());
 
-        if (currentCustomer == null) {
+        if (customer == null) {
             throw new CustomerNotFoundException("Cant delete! Customer with the respective Customer Id not found");
         }
 
@@ -55,7 +56,8 @@ public class CustomerDao implements ICustomerRepository {
     @Override
     public List<Customer> viewCustomers() throws CustomerNotFoundException {
 
-        List<Customer> customers = entityManager.createQuery("Select a from Customer a", Customer.class).getResultList();
+        List<Customer> customers = entityManager.createQuery("Select a from Customer a", Customer.class)
+                .getResultList();
 
         if (customers.size() == 0) {
             throw new CustomerNotFoundException("No customer in the database");
@@ -74,16 +76,13 @@ public class CustomerDao implements ICustomerRepository {
     @Override
     public Customer validateCustomer(String username, String password) throws CustomerNotFoundException {
 
-        Customer customer = entityManager.find(Customer.class, username);
-        if (customer == null) {
-            throw new CustomerNotFoundException("The user with this username was not found!!");
-        } else {
-            if (customer.getPassword() == password) {
-                return customer;
-            } else {
-                throw new CustomerNotFoundException("Password is incorrect");
-            }
+        Customer customer = null;
+        try {
+            customer = (Customer) entityManager.createNamedQuery("find customer by username and password").setParameter("Username", username).setParameter("Password", password).getSingleResult();
+        } catch (NoResultException nre) {
+            throw new CustomerNotFoundException("No customer found with these entries");
         }
+        return customer;
     }
 
 

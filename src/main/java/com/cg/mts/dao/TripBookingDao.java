@@ -39,7 +39,8 @@ public class TripBookingDao implements ITripBookingRepository {
 
     @Override
     public List<TripBooking> viewAllTripsCustomer(int customerId) {
-        List<TripBooking> allTrips = entityManager.createNamedQuery("find tripbooking by customerId", TripBooking.class).setParameter("customerId", customerId).getResultList();
+        List<TripBooking> allTrips = entityManager.createNamedQuery("find tripbooking by customerId", TripBooking.class)
+                .setParameter("customerId", customerId).getResultList();
         return allTrips;
     }
 

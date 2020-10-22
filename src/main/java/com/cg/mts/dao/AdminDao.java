@@ -56,7 +56,8 @@ public class AdminDao implements IAdminRepository {
     @Override
     public List<TripBooking> getAllTrips(int customerId) throws CustomerNotFoundException {
 
-        List<TripBooking> trips = entityManager.createNamedQuery("find tripbooking by customerId", TripBooking.class).setParameter("customerId", customerId).getResultList();
+        List<TripBooking> trips = entityManager.createNamedQuery("find tripbooking by customerId", TripBooking.class)
+                .setParameter("customerId", customerId).getResultList();
 
         if (trips.size() == 0) {
             throw new CustomerNotFoundException("No trip data is found!");
@@ -68,7 +69,9 @@ public class AdminDao implements IAdminRepository {
     @Override
     public List<TripBooking> getTripsCabwise() throws CabNotFoundException {
 
-        List<TripBooking> cabWiseTrip = entityManager.createQuery("SELECT tr FROM TripBooking tr where tr.driver.driverId in(select dr.driverId from Driver dr where dr.cab.cabId in (select c.cabId from Cab c group by c.cabId))", TripBooking.class).getResultList();
+        List<TripBooking> cabWiseTrip = entityManager.createQuery(
+                "SELECT tr FROM TripBooking tr where tr.driver.driverId in(select dr.driverId from Driver dr where dr.cab.cabId in (select c.cabId from Cab c group by c.cabId))",
+                TripBooking.class).getResultList();
 
         if (cabWiseTrip.size() == 0) {
             throw new CabNotFoundException("No cabs found");
@@ -80,14 +83,16 @@ public class AdminDao implements IAdminRepository {
     @Override
     public List<TripBooking> getTripsCustomerwise() {
 
-        List<TripBooking> trips = entityManager.createQuery("SELECT tr from TripBooking tr group by tr.customerId", TripBooking.class).getResultList();
+        List<TripBooking> trips = entityManager
+                .createQuery("SELECT tr from TripBooking tr group by tr.customerId", TripBooking.class).getResultList();
 
         return trips;
     }
 
     @Override
     public List<TripBooking> getTripsDatewise() {
-        List<TripBooking> tripDateWise = entityManager.createQuery("select tr from TripBooking tr group by tr.fromDateTime", TripBooking.class).getResultList();
+        List<TripBooking> tripDateWise = entityManager
+                .createQuery("select tr from TripBooking tr group by tr.fromDateTime", TripBooking.class).getResultList();
         return tripDateWise;
     }
 
@@ -100,7 +105,10 @@ public class AdminDao implements IAdminRepository {
             throw new CustomerNotFoundException("Cant find the customer with the given ID");
         }
 
-        List<TripBooking> allTripForDays = entityManager.createNamedQuery("find tripbooking by multiple", TripBooking.class).setParameter("customerId", customerId).setParameter("fromdatetime", fromDate).setParameter("todatetime", toDate).getResultList();
+        List<TripBooking> allTripForDays = entityManager
+                .createNamedQuery("find tripbooking by multiple", TripBooking.class)
+                .setParameter("customerId", customerId).setParameter("fromdatetime", fromDate)
+                .setParameter("todatetime", toDate).getResultList();
         return allTripForDays;
     }
 
