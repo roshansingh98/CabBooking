@@ -23,7 +23,7 @@ public class AppMain {
 //        appMain.executeCustomerService();
 //        appMain.executeCabServices();
 //        appMain.executeDriverService();
-        appMain.executeAdminServices();
+//        appMain.executeAdminServices();
 
         Util util = Util.getInstance();
         util.close();

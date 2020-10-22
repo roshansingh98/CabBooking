@@ -1,6 +1,8 @@
 package com.cg.mts.service;
 
 import com.cg.mts.entities.*;
+import com.cg.mts.util.Util;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
@@ -118,6 +120,12 @@ class AdminServiceTest {
 
         System.out.println("For days: " + adminService.getAllTripsForDays(customer.getCustomerId(), localDateTime, localDateTime.plusDays(3)));
 
+    }
+
+    @AfterAll
+    static void closeUp() {
+        Util util = Util.getInstance();
+        util.close();
     }
 
 }
