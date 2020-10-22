@@ -23,39 +23,32 @@ public class DriverDao implements IDriverRepository {
 
     @Override
     public Driver updateDriver(Driver driver) throws DriverNotFoundException {
-        boolean status = checkIfExists(driver.getDriverId());
-        if (!status) {
+        Driver currentDriver = entityManager.find(Driver.class, driver.getDriverId());
+        if (currentDriver == null) {
             throw new DriverNotFoundException("Driver Could Not be Found");
         }
         driver = entityManager.merge(driver);
         return driver;
     }
 
-    private boolean checkIfExists(int driverId) {
-        Driver driver = entityManager.find(Driver.class, driverId);
-        boolean result = driver != null;
-        return result;
-    }
 
     @Override
     public Driver deleteDriver(int driverId) throws DriverNotFoundException {
-        boolean status = checkIfExists(driverId);
-        if (!status) {
+        Driver currentDriver = entityManager.find(Driver.class, driverId);
+        if (currentDriver == null) {
             throw new DriverNotFoundException("Driver not found");
         }
-        Driver driver = entityManager.find(Driver.class, driverId);
-        entityManager.remove(driver);
-        return driver;
+        entityManager.remove(currentDriver);
+        return currentDriver;
     }
 
     @Override
     public Driver viewDriver(int driverId) throws DriverNotFoundException {
-        boolean status = checkIfExists(driverId);
-        if (!status) {
+        Driver currentDriver = entityManager.find(Driver.class, driverId);
+        if (currentDriver == null) {
             throw new DriverNotFoundException("Driver Could Not Be Found");
         }
-        Driver driver = entityManager.find(Driver.class, driverId);
-        return driver;
+        return currentDriver;
     }
 
     @Override

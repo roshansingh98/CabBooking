@@ -37,10 +37,10 @@ public class AppMain {
         adminService.insertAdmin(admin2);
 
         Admin updateAdmin = new Admin("Updated admin", "1654", "4587", "khagdja");
-        //System.out.println(admin.getAdminId());
         updateAdmin.setAdminId(admin.getAdminId());
-        //System.out.println(updateAdmin.getAdminId());
-        updateAdmin = adminService.updateAdmin(updateAdmin);
+        adminService.updateAdmin(updateAdmin);
+
+
     }
 
     public void executeCustomerService() {

@@ -29,16 +29,13 @@ public class AdminDao implements IAdminRepository {
     @Override
     public Admin updateAdmin(Admin admin) throws AdminNotFoundException {
 
-        System.out.println("Here" + admin.getAdminId());
-        //brought the check exists function here only. it can be implemented her in one line
-        admin = entityManager.find(Admin.class, admin.getAdminId());
+        Admin currentAdmin = entityManager.find(Admin.class, admin.getAdminId());
 
-        if (admin == null) {
+        if (currentAdmin == null) {
             throw new AdminNotFoundException("Cant update! Admin not found");
         }
 
         admin = entityManager.merge(admin);
-        System.out.println("Merge done");
 
         return admin;
     }

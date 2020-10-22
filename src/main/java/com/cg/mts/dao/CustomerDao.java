@@ -28,9 +28,9 @@ public class CustomerDao implements ICustomerRepository {
 
 //        boolean success = checkExists(customer.getMobileNumber());
 
-        customer = entityManager.find(Customer.class, customer.getCustomerId());
+        Customer currentCustomer = entityManager.find(Customer.class, customer.getCustomerId());
 
-        if (customer == null) {
+        if (currentCustomer == null) {
             throw new CustomerNotFoundException("Cant update! Customer with the respective mobile number not found");
         }
 
@@ -42,9 +42,9 @@ public class CustomerDao implements ICustomerRepository {
     public Customer deleteCustomer(Customer customer) throws CustomerNotFoundException {
 //        boolean success = checkExists(customer.getMobileNumber());
 
-        customer = entityManager.find(Customer.class, customer.getCustomerId());
+        Customer currentCustomer = entityManager.find(Customer.class, customer.getCustomerId());
 
-        if (customer == null) {
+        if (currentCustomer == null) {
             throw new CustomerNotFoundException("Cant delete! Customer with the respective Customer Id not found");
         }
 

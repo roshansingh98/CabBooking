@@ -24,9 +24,9 @@ public class CabDao implements ICabRepository {
     @Override
     public Cab updateCab(Cab cab) throws CabNotFoundException {
 
-        cab = entityManager.find(Cab.class, cab.getCabId());
+        Cab currentCab = entityManager.find(Cab.class, cab.getCabId());
 
-        if (cab == null) {
+        if (currentCab == null) {
             throw new CabNotFoundException("No previous cab found with the same Cab Id");
         }
 
@@ -39,8 +39,8 @@ public class CabDao implements ICabRepository {
     @Override
     public Cab deleteCab(Cab cab) throws CabNotFoundException {
 
-        cab = entityManager.find(Cab.class, cab.getCabId());
-        if (cab == null) {
+        Cab currentCab = entityManager.find(Cab.class, cab.getCabId());
+        if (currentCab == null) {
             throw new CabNotFoundException("No such cab found");
         }
 
