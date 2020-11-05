@@ -1,13 +1,10 @@
-package com.cg.mts;
+package com.cg.mts.main;
 
 import com.cg.mts.entities.*;
-import com.cg.mts.repository.IAdminRepository;
 import com.cg.mts.service.*;
-import com.cg.mts.util.Util;
-import com.sun.corba.se.spi.activation.ServerOperations;
+import com.cg.mts.util.PersistanceUtil;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 
 public class AppMain {
@@ -25,8 +22,8 @@ public class AppMain {
 //        appMain.executeDriverService();
 //        appMain.executeAdminServices();
 
-        Util util = Util.getInstance();
-        util.close();
+        PersistanceUtil persistanceUtil = PersistanceUtil.getInstance();
+        persistanceUtil.close();
     }
 
     private void executeDriverService() {

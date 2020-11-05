@@ -1,7 +1,7 @@
 package com.cg.mts.service;
 
 import com.cg.mts.entities.*;
-import com.cg.mts.util.Util;
+import com.cg.mts.util.PersistanceUtil;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Test;
 
@@ -126,8 +126,8 @@ class AdminServiceTest {
 
     @AfterAll
     static void closeUp() {
-        Util util = Util.getInstance();
-        util.close();
+        PersistanceUtil persistanceUtil = PersistanceUtil.getInstance();
+        persistanceUtil.close();
     }
 
 }
