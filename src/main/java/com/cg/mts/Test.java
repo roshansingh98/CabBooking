@@ -1,4 +1,4 @@
-package com.cg.mts.main;
+package com.cg.mts;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;

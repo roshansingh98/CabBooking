@@ -7,7 +7,7 @@ import javax.persistence.EntityTransaction;
 
 import com.cg.mts.dao.TripBookingDao;
 import com.cg.mts.repository.ITripBookingRepository;
-import com.cg.mts.util.PersistanceUtil;
+import com.cg.mts.util.Util;
 import com.cg.mts.entities.TripBooking;
 
 public class TripBookingService implements ITripBookingService {
@@ -17,8 +17,8 @@ public class TripBookingService implements ITripBookingService {
 	private ITripBookingRepository tripBookingDao;
 
 	public TripBookingService() {
-		PersistanceUtil persistanceUtil = PersistanceUtil.getInstance();
-		entityManager = persistanceUtil.getEntityManager();
+		Util util = Util.getInstance();
+		entityManager = util.getEntityManager();
 		tripBookingDao = new TripBookingDao(entityManager);
 	}
 

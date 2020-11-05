@@ -10,7 +10,7 @@ import com.cg.mts.dao.CabDao;
 import com.cg.mts.exception.CabNotFoundException;
 import com.cg.mts.exception.InvalidCabException;
 import com.cg.mts.repository.ICabRepository;
-import com.cg.mts.util.PersistanceUtil;
+import com.cg.mts.util.Util;
 import com.cg.mts.entities.Cab;
 
 public class CabService implements ICabService {
@@ -20,8 +20,8 @@ public class CabService implements ICabService {
 	private final EntityManager entityManager;
 
 	public CabService() {
-		PersistanceUtil persistanceUtil = PersistanceUtil.getInstance();
-		entityManager = persistanceUtil.getEntityManager();
+		Util util = Util.getInstance();
+		entityManager = util.getEntityManager();
 		cabDao = new CabDao(entityManager);
 	}
 

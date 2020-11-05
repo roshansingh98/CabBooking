@@ -1,6 +1,7 @@
 package com.cg.mts.service;
 
-import com.cg.mts.util.PersistanceUtil;
+import com.cg.mts.exception.CustomerNotFoundException;
+import com.cg.mts.util.Util;
 import com.cg.mts.entities.Customer;
 import org.junit.jupiter.api.*;
 
@@ -124,7 +125,7 @@ class CustomerServiceTest {
 
     @AfterAll
     static void closeUp() {
-        PersistanceUtil persistanceUtil = PersistanceUtil.getInstance();
-        persistanceUtil.close();
+        Util util = Util.getInstance();
+        util.close();
     }
 }

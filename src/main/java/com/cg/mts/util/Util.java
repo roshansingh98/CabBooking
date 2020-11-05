@@ -6,15 +6,15 @@ import javax.persistence.Persistence;
 import java.util.HashSet;
 import java.util.Set;
 
-public class PersistanceUtil {
+public class Util {
 
 	EntityManagerFactory factory = Persistence.createEntityManagerFactory("cabbooking");
 
 	private Set<EntityManager> entityManagers = new HashSet<>();
 
-	private static PersistanceUtil instance = new PersistanceUtil();
+	private static Util instance = new Util();
 
-	public static PersistanceUtil getInstance() {
+	public static Util getInstance() {
 		return instance;
 	}
 

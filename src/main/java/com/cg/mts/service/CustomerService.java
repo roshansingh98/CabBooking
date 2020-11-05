@@ -2,7 +2,7 @@ package com.cg.mts.service;
 
 import com.cg.mts.dao.CustomerDao;
 import com.cg.mts.exception.InvalidCustomerException;
-import com.cg.mts.util.PersistanceUtil;
+import com.cg.mts.util.Util;
 import com.cg.mts.entities.Customer;
 import com.cg.mts.exception.CustomerNotFoundException;
 import com.cg.mts.repository.ICustomerRepository;
@@ -20,8 +20,8 @@ public class CustomerService implements ICustomerService {
     private EntityManager entityManager;
 
     public CustomerService() {
-        PersistanceUtil persistanceUtil = PersistanceUtil.getInstance();
-        entityManager = persistanceUtil.getEntityManager();
+        Util util = Util.getInstance();
+        entityManager = util.getEntityManager();
         customerDao = new CustomerDao(entityManager);
     }
 

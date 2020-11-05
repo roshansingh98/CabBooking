@@ -11,7 +11,7 @@ import com.cg.mts.dao.DriverDao;
 import com.cg.mts.exception.DriverNotFoundException;
 import com.cg.mts.exception.InvalidDriverException;
 import com.cg.mts.repository.IDriverRepository;
-import com.cg.mts.util.PersistanceUtil;
+import com.cg.mts.util.Util;
 import com.cg.mts.entities.Driver;
 
 public class DriverService implements IDriverService {
@@ -22,8 +22,8 @@ public class DriverService implements IDriverService {
 	private final IDriverRepository driverDao;
 
 	public DriverService() {
-		PersistanceUtil persistanceUtil = PersistanceUtil.getInstance();
-		entityManager = persistanceUtil.getEntityManager();
+		Util util = Util.getInstance();
+		entityManager = util.getEntityManager();
 		driverDao = new DriverDao(entityManager);
 	}
 
