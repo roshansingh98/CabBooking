@@ -1,13 +1,10 @@
-package com.cg.mts;
+package com.cg.mts.main;
 
 import com.cg.mts.entities.*;
-import com.cg.mts.repository.IAdminRepository;
 import com.cg.mts.service.*;
-import com.cg.mts.util.Util;
-import com.sun.corba.se.spi.activation.ServerOperations;
+import com.cg.mts.util.PersistanceUtil;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 
 public class AppMain {
@@ -23,10 +20,10 @@ public class AppMain {
 //        appMain.executeCustomerService();
 //        appMain.executeCabServices();
 //        appMain.executeDriverService();
-//        appMain.executeAdminServices();
+        appMain.executeAdminServices();
 
-        Util util = Util.getInstance();
-        util.close();
+        PersistanceUtil persistanceUtil = PersistanceUtil.getInstance();
+        persistanceUtil.close();
     }
 
     private void executeDriverService() {
@@ -73,9 +70,9 @@ public class AppMain {
 
     private void executeAdminServices() {
 
-        Admin admin = new Admin("Admin", "123", "12345", "abcde");
-        Admin admin1 = new Admin("Admin1", "123", "12345", "abc");
-        Admin admin2 = new Admin("Admin2", "123", "12345", "abc");
+        Admin admin = new Admin("firstAdmin", "123456", "9600456781", "");
+        Admin admin1 = new Admin("Admin1", "123456", "9600456782", "abc@gmail.com");
+        Admin admin2 = new Admin("Admin2", "123456", "9600456783", "abc@gmail.com");
 
         //Use of insertion
         IAdminService adminService = new AdminService();
@@ -84,7 +81,7 @@ public class AppMain {
         adminService.insertAdmin(admin2);
 
         //Use of updating
-        Admin updateAdmin = new Admin("Updated admin", "1654", "4587", "khagdja");
+        Admin updateAdmin = new Admin("Updated admin", "123456", "9600456781", "khagdja@gmail.com");
         updateAdmin.setAdminId(admin.getAdminId());
         System.out.println("Updated here" + adminService.updateAdmin(updateAdmin).getAdminId());
 
@@ -92,7 +89,7 @@ public class AppMain {
         adminService.deleteAdmin(admin1.getAdminId());
 
         //Use of getAllTrips
-        Customer customer = new Customer("Cust1", "pass", "dsdcsd", "cscdsc");
+        Customer customer = new Customer("Customer1", "password", "9600456781", "cscdsc@gmail.com");
         ICustomerService customerService = new CustomerService();
         customer = customerService.insertCustomer(customer);
 
