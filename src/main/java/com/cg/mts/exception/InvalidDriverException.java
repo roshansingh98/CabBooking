@@ -1,6 +1,6 @@
 package com.cg.mts.exception;
 
-public class InvalidDriverException extends Exception {
+public class InvalidDriverException extends RuntimeException {
 
     /**
      *

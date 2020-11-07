@@ -1,6 +1,6 @@
 package com.cg.mts.exception;
 
-public class CustomerNotFoundException extends Exception {
+public class CustomerNotFoundException extends RuntimeException {
 
 	/**
 	 *

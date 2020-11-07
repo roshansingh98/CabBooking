@@ -1,19 +1,23 @@
 package com.cg.mts.entities;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import java.time.LocalDateTime;
 import javax.persistence.*;
 
 @Entity
+@Table(name="tripsbooking")
 @NamedQueries({
 		@NamedQuery(query = "Select e from TripBooking e where e.customerId = :customerId", name = "find tripbooking by customerId"),
 		@NamedQuery(query = "select e from TripBooking e where e.customerId = :customerId and e.fromDateTime = :fromdatetime and e.toDateTime = :todatetime", name = "find tripbooking by multiple")
 })
 public class TripBooking {
-	@GeneratedValue
 	@Id
+	@GeneratedValue
 	private int tripBookingId;
 	private int customerId;
-	@ManyToOne(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
+	@Autowired
+	@ManyToOne(cascade = {CascadeType.ALL}, fetch=FetchType.EAGER)
 	@JoinColumn(name = "Driver")
 	private Driver driver;
 	private String fromLocation;

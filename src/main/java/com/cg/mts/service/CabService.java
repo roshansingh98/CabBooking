@@ -2,104 +2,69 @@ package com.cg.mts.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 
-import com.cg.mts.dao.CabDao;
 import com.cg.mts.exception.CabNotFoundException;
 import com.cg.mts.exception.InvalidCabException;
 import com.cg.mts.repository.ICabRepository;
 import com.cg.mts.util.PersistanceUtil;
 import com.cg.mts.entities.Cab;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+@Service
+@Transactional
+// this is using jpa repository
 public class CabService implements ICabService {
 
-	private ICabRepository cabDao;
+	@Autowired
+	private ICabRepository cabRepository;
 
-	private final EntityManager entityManager;
-
-	public CabService() {
-		PersistanceUtil persistanceUtil = PersistanceUtil.getInstance();
-		entityManager = persistanceUtil.getEntityManager();
-		cabDao = new CabDao(entityManager);
-	}
-
+	@Override
 	public Cab insertCab(Cab cab) {
-
-		try {
-			if (cab.getCarType() == null) {
-				throw new InvalidCabException("Cab cannot be null");
-			}
-		} catch (InvalidCabException e) {
-			System.out.println(e.getMessage());
-			return new Cab();
-		}
-
-		EntityTransaction entityTransaction = entityManager.getTransaction();
-		entityTransaction.begin();
-		cab = cabDao.insertCab(cab);
-		entityTransaction.commit();
+		cab = cabRepository.save(cab);
 		return cab;
 	}
 
+	@Override
 	public Cab updateCab(Cab cab) {
-		EntityTransaction entityTransaction = entityManager.getTransaction();
-		entityTransaction.begin();
-		try {
-			cab = cabDao.updateCab(cab);
-		} catch (CabNotFoundException e) {
-			System.out.println(e.getMessage());
-			entityTransaction.commit();
-			return new Cab();
+		boolean checkIfExists= cabRepository.existsById(cab.getCabId());
+		if(!checkIfExists){
+			throw new InvalidCabException("Cab does not exists for id="+cab.getCabId());
 		}
-		entityTransaction.commit();
+		cab = cabRepository.save(cab);
 		return cab;
+
 	}
 
+	@Override
 	public Cab deleteCab(Cab cab) {
-		EntityTransaction entityTransaction = entityManager.getTransaction();
-		entityTransaction.begin();
-		try {
-			cab = cabDao.deleteCab(cab);
-		} catch (CabNotFoundException e) {
-			System.out.println(e.getMessage());
-			entityTransaction.commit();
-			return new Cab();
+		Optional<Cab> optional=cabRepository.findById(cab.getCabId());
+		if(!optional.isPresent()){
+			throw new CabNotFoundException("Cab not found for id="+cab.getCabId());
 		}
-		entityTransaction.commit();
+		cabRepository.deleteById(cab.getCabId());
+
 		return cab;
 	}
 
+	@Override
 	public List<Cab> viewCabsOfType(String carType) {
-		EntityTransaction entityTransaction = entityManager.getTransaction();
-		entityTransaction.begin();
-		List<Cab> listOfCabs = null;
-		try {
-			listOfCabs = cabDao.viewCabsOfType(carType);
-		} catch (CabNotFoundException e) {
-			System.out.println(e.getMessage());
-			entityTransaction.commit();
-			return new ArrayList<Cab>();
+		List<Cab> cabsOfCarType = cabRepository.findByCarType(carType);
+		if(cabsOfCarType.size()==0)
+		{
+			throw new CabNotFoundException("Cab not found for carType="+carType);
 		}
-		entityTransaction.commit();
-		return listOfCabs;
+		return cabsOfCarType;
 	}
 
+	@Override
 	public int countCabsOfType(String carType) {
-		EntityTransaction entityTransaction = entityManager.getTransaction();
-		entityTransaction.begin();
-//		int count = (Integer) entityManager.createQuery("Select count(*) from cab where cartype = 'cartype'").setParameter("cartype", carType).getSingleResult();
-
-		int count = 0;
-
-		try {
-			count = cabDao.countCabsOfType(carType);
-		} catch (CabNotFoundException e) {
-			System.out.println(e.getMessage());
-		}
-
-		entityTransaction.commit();
+		int count = cabRepository.countCabsOfType(carType);
 		return count;
 	}
 

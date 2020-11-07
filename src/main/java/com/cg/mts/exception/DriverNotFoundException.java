@@ -1,6 +1,6 @@
 package com.cg.mts.exception;
 
-public class DriverNotFoundException extends Exception {
+public class DriverNotFoundException extends RuntimeException {
 
 	/**
 	 *

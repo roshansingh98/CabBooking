@@ -1,17 +1,21 @@
 package com.cg.mts.entities;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import java.util.*;
 
 import javax.persistence.*;
 
 @Entity
+@Table(name="drivertable")
 public class Driver extends AbstractUser {
 
-	@GeneratedValue
 	@Id
+	@GeneratedValue
 	private int driverId;
 	private String licenseNo;
-	@OneToOne(cascade = {CascadeType.ALL})
+	@Autowired
+	@OneToOne(cascade = { CascadeType.ALL })
 	private Cab cab;
 	private float rating;
 	@OneToMany(mappedBy = "driver")

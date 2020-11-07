@@ -1,6 +1,6 @@
 package com.cg.mts.exception;
 
-public class InvalidAdminException extends Exception {
+public class InvalidAdminException extends RuntimeException {
 
     /**
      *

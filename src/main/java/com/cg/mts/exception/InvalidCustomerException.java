@@ -1,6 +1,6 @@
 package com.cg.mts.exception;
 
-public class InvalidCustomerException extends Exception {
+public class InvalidCustomerException extends RuntimeException {
 
     /**
      *

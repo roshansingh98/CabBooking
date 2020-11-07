@@ -3,6 +3,7 @@ package com.cg.mts.entities;
 import javax.persistence.*;
 
 @Entity
+@Table(name="customertable")
 @NamedQuery(query = "select c from Customer c where c.username = :Username and c.password = :Password", name = "find customer by username and password")
 public class Customer extends AbstractUser {
 

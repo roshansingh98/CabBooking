@@ -1,6 +1,6 @@
 package com.cg.mts.exception;
 
-public class CabNotFoundException extends Exception {
+public class CabNotFoundException extends RuntimeException {
 
     /**
      *
