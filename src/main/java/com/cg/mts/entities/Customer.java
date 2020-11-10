@@ -9,7 +9,7 @@ public class Customer extends AbstractUser {
 
 	@GeneratedValue
 	@Id
-	private Integer customerId;
+	private int customerId;
 
 	public Customer(String username, String password, String mobileNumber, String email) {
 		super(username, password, mobileNumber, email);
