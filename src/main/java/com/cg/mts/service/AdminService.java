@@ -82,8 +82,7 @@ public class AdminService implements IAdminService {
 	 */
 	@Override
 	public List<TripBooking> getAllTrips(int customerId) {
-		List<TripBooking> trips = null;
-		trips = adminRepository.getAllTrips(customerId);
+		List<TripBooking> trips = adminRepository.getAllTrips(customerId);
 		if (trips.size() == 0) {
 			throw new CustomerNotFoundException("No trips found with the customerid " + customerId);
 		}
