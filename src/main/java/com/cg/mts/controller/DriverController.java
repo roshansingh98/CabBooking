@@ -59,7 +59,7 @@ public class DriverController {
      * This method will return a driver object whose driver id we will pass in the
      * url
      */
-    @GetMapping("/get/{id}")
+    @GetMapping("/retrieve/{id}")
     public Driver getDriver(@PathVariable("id") int driverId) {
         Driver driver = driverService.viewDriver(driverId);
         return driver;
@@ -68,7 +68,7 @@ public class DriverController {
     /*
      * This method will return list of all the drivers whose rating is 4.5 and above
      */
-    @GetMapping("/get/viewBestDrivers")
+    @GetMapping("/retrieve/viewBestDrivers")
     public List<Driver> viewBestDrivers() {
         List<Driver> bestDrivers = driverService.viewBestDrivers();
         return bestDrivers;

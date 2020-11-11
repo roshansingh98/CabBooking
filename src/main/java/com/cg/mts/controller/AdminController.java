@@ -18,7 +18,8 @@ import java.util.List;
 @RequestMapping("/admin")
 /*
  * This annotation defines a class as a controller in spring boot. Rest
- * controller consists of @Controller and @ResponseBody annotation
+ * controller consists of @Controller and @ResponseBody annotation. Spring RestController
+ * takes care of mapping request data to the defined request handler method
  */
 @RestController
 public class AdminController {
@@ -37,7 +38,7 @@ public class AdminController {
      */
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/add")
-    public Admin add(@RequestBody @NotNull(message = "") Admin admin) {
+    public Admin add(@RequestBody Admin admin) {
         return adminService.insertAdmin(admin);
     }
 
@@ -68,28 +69,28 @@ public class AdminController {
      * This method will return a list of tripbookings from the table where id
      * matches with the one we have passed
      */
-    @GetMapping("/get/tripsBooking/{id}")
+    @GetMapping("/retrieve/tripsBooking/{id}")
     public List<TripBooking> getTripBooking(@PathVariable("id") int id) {
         List<TripBooking> trp = adminService.getAllTrips(id);
         return trp;
     }
 
     /* This method will return a list of TripBooking based on each cabType */
-    @GetMapping("/get/getCabWise")
+    @GetMapping("/retrieve/getCabWise")
     public List<TripBooking> getCabWise(){
         List<TripBooking> trp = adminService.getTripsCabwise();
         return trp;
     }
 
     /* This method will return a list of TripBookings group based on customers */
-    @GetMapping("/get/getTripsCustomerwise")
+    @GetMapping("/retrieve/getTripsCustomerwise")
     public List<TripBooking> getCustomerWise() {
         List<TripBooking> trp = adminService.getTripsCustomerwise();
         return trp;
     }
 
     /* This method will return a list of TripBookings based on Trip Dates */
-    @GetMapping("/get/getTripsDatewise")
+    @GetMapping("/retrieve/getTripsDatewise")
     public List<TripBooking> getTripsDatewise() {
         List<TripBooking> trp = adminService.getTripsDatewise();
         return trp;
@@ -100,7 +101,7 @@ public class AdminController {
      * This method will return a list of TripBookings based on the customerId,
      * fromDate, and toDate
      */
-    @GetMapping("/get/getAllTripsForDays/{id}/{date1}/{date2}")
+    @GetMapping("/retrieve/getAllTripsForDays/{id}/{date1}/{date2}")
     public List<TripBooking> getAllTripsForDays(@PathVariable("id") int customerId, @PathVariable("date1") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime fromDateTime, @PathVariable("date2") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime toDateTime){
         List<TripBooking> trp = adminService.getAllTripsForDays(customerId, fromDateTime, toDateTime);
         return trp;

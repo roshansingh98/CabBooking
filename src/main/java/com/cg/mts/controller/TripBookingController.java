@@ -56,7 +56,7 @@ public class TripBookingController {
     }
 
     /* This will return a list of Tripbookings based on customer id */
-    @GetMapping("/get/customerWiseTrips/{id}")
+    @GetMapping("/retrieve/customerWiseTrips/{id}")
     public List<TripBooking> getTrips(@PathVariable("id") int customerId) {
         List<TripBooking> trips = tripBookingService.viewAllTripsCustomer(customerId);
         return trips;
@@ -66,7 +66,7 @@ public class TripBookingController {
      * This will return the bill of the trip booking of the customer whose customer
      * id we will pass in the url
      */
-    @GetMapping("/get/calculateBill/{id}")
+    @GetMapping("/retrieve/calculateBill/{id}")
     public Float calculateBill(@PathVariable("id") int customerId) {
         TripBooking tripBooking = tripBookingService.calculateBill(customerId);
         float bill = tripBooking.getBill();
